@@ -3,7 +3,7 @@
 # (c) 2007 Dan Zeman <zeman@ufal.mff.cuni.cz>
 # Licence: GNU GPL
 
-package han2pinyin;
+package translit::han2pinyin;
 use utf8;
 
 BEGIN
