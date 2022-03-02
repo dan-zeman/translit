@@ -1,18 +1,19 @@
 #!/usr/bin/perl
 # Převede text z cizího písma do latinky. Jde pouze o usnadnění čitelnosti, ne nutně o zachování veškeré informace.
-# (c) 2007-2008 Dan Zeman <zeman@ufal.mff.cuni.cz>
+# Copyright © 2007-2008, 2020 Dan Zeman <zeman@ufal.mff.cuni.cz>
 # Licence: GNU GPL
 
 use utf8;
-use open ":utf8";
-binmode(STDIN, ":utf8");
-binmode(STDOUT, ":utf8");
-binmode(STDERR, ":utf8");
+use open ':utf8';
+binmode(STDIN, ':utf8');
+binmode(STDOUT, ':utf8');
+binmode(STDERR, ':utf8');
 use lib '/home/zeman/lib';
 use translit;
 use translit::armen;
 use translit::greek;
 use translit::cyril;
+use translit::syriac;
 use translit::urdu;
 use translit::uyghur;
 use translit::brahmi;
@@ -24,14 +25,21 @@ use translit::khmer;
 use translit::hangeul;
 use translit::han2pinyin;
 use Getopt::Long;
-GetOptions('scientific' => \$scientific);
+my $language;
+my $scientific;
+GetOptions
+(
+    'language'   => \$language,
+    'scientific' => \$scientific
+);
 
 
 
 # 0x500: Arménské písmo.
 translit::armen::inicializovat(\%prevod);
 translit::greek::inicializovat(\%prevod);
-translit::cyril::inicializovat(\%prevod);
+translit::cyril::inicializovat(\%prevod, $language);
+translit::syriac::inicializovat(\%prevod);
 # 0x600: Arabské písmo pro urdštinu.
 translit::urdu::inicializovat(\%prevod);
 translit::uyghur::inicializovat(\%prevod);
