@@ -29,7 +29,7 @@ my $language;
 my $scientific;
 GetOptions
 (
-    'language'   => \$language,
+    'language=s' => \$language,
     'scientific' => \$scientific
 );
 
