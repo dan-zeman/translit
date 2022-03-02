@@ -1,0 +1,67 @@
+To, co má Unicode jako "A", je ve skutečnosti "ä" (a čte se opravdu mezi "a" a "e").
+
+"U" se čte dlouze ("ú").
+"I" se čte dlouze ("í").
+"AA" se čte dlouze, ale nepřehlasovaně ("á").
+"EE" se čte dlouze ("é").
+"E" se čte jako šva ("ă", resp. "e" otočené o 180°).
+"O" se čte dlouze ("ó").
+"OA" resp. "WA" se čte "wă".
+K některým souhláskám prý ještě existuje "yä" (čti "jä").
+
+Návrh přepisu:
+A  = ä
+U  = u
+I  = i
+AA = a
+EE = e
+E  = ə
+O  = o
+WA = ă
+OA = ă
+
+Souhlásky:
+H  = h
+L  = l
+HH = ḥ (h s tečkou dole) (jak se to vyslovuje?)
+M  = m
+SZ = ś (jak se to vyslovuje?)
+R  = r
+S  = s
+SH = š (ale Omniglot ho vůbec neuvádí)
+Q  = q (IPA a Omniglot jako k s tečkou dole)
+QW je varianta Q, Omniglot jako k s tečkou dole a w jako horním indexem vpravo. Možná psát prostě = qw
+Pak ještě od obojího existují varianty s přídechem (h jako horní index; ale Omniglot uvádí jen QHW, ne samotné QH):
+QH  = qh
+QHW = qhw
+B   = b
+V   = v (asi je to varianta B, Omniglot ji neuvádí)
+T   = t
+C   = ť (Omniglot neuvádí, tvarově varianta T s tykadly)
+X   = ch (Omniglot uvádí jako h s obloučkem dole)
+XW  = chw
+N   = n
+NY  = ň (Omniglot neuvádí)
+GLOTTAL odpovídá alifu (a jmenuje se älf), tedy asi český ráz, tedy = ' (vykrojené zleva)
+K   = k
+KW  = kw
+KX  = kch
+KXW = kchw
+W   = w
+PHARYNGEAL odpovídá aynu (a jmenuje se äyn), tedy něco hrdelního jako v arabštině a hebrejštině, tedy = ` (vykrojené zprava)
+Z   = z
+ZH  = ž (Omniglot neuvádí)
+Y   = j (popř. y)
+D   = d
+DD  = ď? (Omniglot neuvádí)
+J   = dž? (Omniglot neuvádí)
+G   = g
+GW  = gw
+GG  = gh? (Omniglot neuvádí)
+TH  = t s tečkou dole (jak se to vyslovuje?)
+CH  = č
+PH  = ph (Omniglot má jako p s tečkou dole)
+TS  = c (Omniglot má jako s s tečkou dole)
+TZ  = dz? (Omniglot neuvádí)
+F   = f
+P   = p
