@@ -179,6 +179,19 @@ sub inicializovat
         $cyril{1065} = 'ŠT';
         $cyril{1097} = 'št';
     }
+    elsif($jazyk eq 'cu') # staroslověnština
+    {
+        $cyril{1061} = 'CH'; # X?
+        $cyril{1093} = 'ch'; # x?
+        # Měkký i tvrdý znak jsou tzv. jery a zřejmě odpovídají velmi krátkým samohláskám. Někdy se v přepisu do latinky nechávají v původním tvaru, někdy se přepisují pomocí samohlásek a diakritiky:
+        $cyril{1066} = 'Ŭ';
+        $cyril{1098} = 'ŭ';
+        $cyril{1068} = 'Ĭ';
+        $cyril{1100} = 'ĭ';
+        # Místo "šč" se ve staroslověnštině čte "št".
+        $cyril{1065} = 'ŠT';
+        $cyril{1097} = 'št';
+    }
     foreach my $kod (keys(%cyril))
     {
         $prevod->{chr($kod)} = $cyril{$kod};
