@@ -121,6 +121,27 @@ sub inicializovat
         1107 => 'ď',
         1109 => 'dz',
         1116 => 'ť',
+        # staroslověnština
+        1122 => 'Ě',  # YAT: Ѣ
+        1123 => 'ě',  # YAT: ѣ
+        1124 => 'JE', # IOTIFIED E: Ѥ
+        1125 => 'je', # IOTIFIED E: ѥ
+        1126 => 'Ę',  # LITTLE YUS: Ѧ
+        1127 => 'ę',  # LITTLE YUS: ѧ
+        1128 => 'JĘ', # IOTIFIED LITTLE YUS: Ѩ
+        1129 => 'ję', # IOTIFIED LITTLE YUS: ѩ
+        1130 => 'Ǫ',  # BIG YUS: Ѫ
+        1131 => 'ǫ',  # BIG YUS: ѫ
+        1132 => 'JǪ', # IOTIFIED BIG YUS: Ѭ
+        1133 => 'jǫ', # IOTIFIED BIG YUS: ѭ
+        1144 => 'U',  # UK: Ѹ
+        1145 => 'u',  # UK: ѹ
+        42566 => 'I', # IOTA: Ꙇ
+        42567 => 'i', # IOTA: ꙇ
+        42570 => 'U', # MONOGRAPH UK: Ꙋ
+        42571 => 'u', # MONOGRAPH UK: ꙋ
+        42576 => 'Y', # YERU WITH BACK YER: Ꙑ
+        42577 => 'y', # YERU WITH BACK YER: ꙑ
         # mongolština a turkické jazyky
         1256 => 'Ö',
         1257 => 'ö',
