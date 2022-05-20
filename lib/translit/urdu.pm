@@ -75,7 +75,7 @@ use utf8;
     'tind'    => ['t'.chr(803), chr(355), 't',  't'.chr(803), 't', 'T'],
     'dind'    => ['d'.chr(803), chr(273), 'd',  'd'.chr(803), 'd', 'D'],
     'nind'    => ['n'.chr(803), chr(326), 'n',  'n'.chr(803), 'n', 'N'],
-    'anusvár' => ['n'.chr(771), chr(241), 'n',  'n'.chr(771), 'n', 'M'],
+    'anusvár' => ['n'.chr(771), chr(241), 'n',  chr(241),     'n', 'M'],
     'ng'      => [chr(331),     chr(331), 'ng', chr(331),     'ng', 'ng'],
     'ň'       => ['ň',          'ň',      'ň',  'ň',          'ny', 'ny'],
     'rind'    => ['r'.chr(803), chr(343), 'r',  'r',          'r', 'R'],
