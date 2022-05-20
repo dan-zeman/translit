@@ -40,9 +40,17 @@ translit::armen::inicializovat(\%prevod);
 translit::greek::inicializovat(\%prevod);
 translit::cyril::inicializovat(\%prevod, $language);
 translit::syriac::inicializovat(\%prevod);
-# 0x600: Arabské písmo pro urdštinu.
-translit::urdu::inicializovat(\%prevod);
-translit::uyghur::inicializovat(\%prevod);
+# 0x600: Arabské písmo pro urdštinu a ujgurštinu se navzájem tluče; jako druhé dát to, které převádíme.
+if($language eq 'ug')
+{
+    translit::urdu::inicializovat(\%prevod);
+    translit::uyghur::inicializovat(\%prevod);
+}
+else
+{
+    translit::uyghur::inicializovat(\%prevod);
+    translit::urdu::inicializovat(\%prevod);
+}
 # 0x900: Písmo devanágarí.
 translit::brahmi::inicializovat(\%prevod, 2304, $scientific);
 # 0x980: Bengálské písmo.
