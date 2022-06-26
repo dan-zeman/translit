@@ -19,6 +19,7 @@ use translit::tibetan;
 use translit::mkhedruli;
 use translit::hebrew;
 use translit::ethiopic;
+use translit::thai;
 use translit::khmer;
 use translit::hangeul;
 use translit::han2pinyin;
@@ -56,6 +57,8 @@ translit::mkhedruli::inicializovat(\%prevod);
 translit::ethiopic::inicializovat(\%prevod);
 translit::tibetan::inicializovat(\%prevod);
 translit::hebrew::inicializovat(\%prevod);
+# 0xE00: Thajské písmo.
+translit::thai::inicializovat(\%prevod);
 # 0x1780: Khmerské písmo.
 translit::khmer::inicializovat(\%prevod);
 # Korejské písmo Hangeul.
