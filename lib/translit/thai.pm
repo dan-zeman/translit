@@ -175,6 +175,8 @@ sub inicializovat
         tonovat($prevod, $sara_e.$tsouhlaska.$sara_uee, $o_ang, $rsouhlaska.'űá');
         # Sara ua (podle RTGS se jak dlouhá, tak krátká přepisuje "ua").
         tonovat($prevod, $tsouhlaska.$maihanakat, $wo_waen, $rsouhlaska.'úá');
+        # Sara ao (podle RTGS se jak dlouhá, tak krátká přepisuje "ao"). Foneticky jde o dvojhlásku, ale podle thajské tradice je krátká verze považována za další samohlásku.
+        tonovat($prevod, $sara_e.$tsouhlaska, $sara_aa, $rsouhlaska.'ao');
         # Další kombinace.
         $prevod->{$tsouhlaska.$o_ang} = $rsouhlaska.'ɔː'; ###!!! Zatím nekonzistentní označování délky samohlásky, ale u otevřeného o bych musel použít combining acute accent.
         # Pozor! Pokud za souhláskou následuje o ang, neznamená to automaticky, že o ang označuje samohlásku 'ɔː'.
