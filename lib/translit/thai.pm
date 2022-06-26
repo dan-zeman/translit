@@ -139,7 +139,7 @@ sub inicializovat
         {
             if(defined($samohlasky[$i]))
             {
-                $prevod->{$tsouhlaska.chr($samohlasky+$i)} = $rsouhlaska.$samohlasky[$i];
+                $prevod->{$tsouhlaska.chr($samohlasky+$j)} = $rsouhlaska.$samohlasky[$j];
             }
         }
         # Sara e = 3648.
