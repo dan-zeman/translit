@@ -116,8 +116,13 @@ sub inicializovat
     my $pocatek = 3585;
     my $souhlasky = 3585;
     my $samohlasky = 3632;
+    my $o_ang = chr(3629); # funguje jako ráz před samohláskou nebo jako součást některých samohlásek
+    my $sara_a = chr(3632);
+    my $sara_aa = chr(3634);
+    my $sara_e = chr(3648);
+    my $sara_ae = chr(3649);
+    my $sara_o = chr(3650);
     my $cislice = 3664;
-    my $virama = $pocatek+77;
     my @samohlasky = ('a', undef, 'á', undef, 'i', 'í', 'ü', 'ű', 'u', 'ú');
     # Uložit do tabulky samostatné souhlásky. Zatím se nezabývat inherentními
     # samohláskami. Jednak nevím, jak bychom odlišili případ, kdy je samohláska,
@@ -138,14 +143,19 @@ sub inicializovat
             }
         }
         # Sara e = 3648.
-        $prevod->{chr(3648).$tsouhlaska} = $rsouhlaska.'é';
-        $prevod->{chr(3648).$tsouhlaska.chr(3632)} = $rsouhlaska.'e';
+        $prevod->{$sara_e.$tsouhlaska} = $rsouhlaska.'é';
+        $prevod->{$sara_e.$tsouhlaska.$sara_a} = $rsouhlaska.'e';
         # Sara ae = 3649.
-        $prevod->{chr(3649).$tsouhlaska} = $rsouhlaska.'ǽ';
-        $prevod->{chr(3649).$tsouhlaska.chr(3632)} = $rsouhlaska.'æ';
+        $prevod->{$sara_ae.$tsouhlaska} = $rsouhlaska.'ǽ';
+        $prevod->{$sara_ae.$tsouhlaska.$sara_a} = $rsouhlaska.'æ';
         # Sara o = 3650.
-        $prevod->{chr(3650).$tsouhlaska} = $rsouhlaska.'ó';
-        $prevod->{chr(3650).$tsouhlaska.chr(3632)} = $rsouhlaska.'o';
+        $prevod->{$sara_o.$tsouhlaska} = $rsouhlaska.'ó';
+        $prevod->{$sara_o.$tsouhlaska.$sara_a} = $rsouhlaska.'o';
+        # Další kombinace.
+        $prevod->{$tsouhlaska.$o_ang} = $rsouhlaska.'ɔː'; ###!!! Zatím nekonzistentní označování délky samohlásky, ale u otevřeného o bych musel použít combining acute accent.
+        $prevod->{$sara_e.$tsouhlaska.$sara_aa.$sara_a} = $rsouhlaska.'ɔ';
+        $prevod->{$sara_e.$tsouhlaska.$o_ang} = $rsouhlaska.'óé';
+        $prevod->{$sara_e.$tsouhlaska.$o_ang.$sara_a} = $rsouhlaska.'oe';
     }
     # The inherent vowels are /a/ in open syllables (CV) and /o/ in closed syllables (CVC).
     # For example, ถนน transcribes /tʰànǒn/ "road". There are a few exceptions in Pali loanwords, where the inherent vowel of an open syllable is /o/.
