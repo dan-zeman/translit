@@ -117,9 +117,11 @@ sub inicializovat
     my $souhlasky = 3585;
     my $samohlasky = 3632;
     my $tony = 3656;
+    my $yo_yak = chr(3618); # vyskytuje se jako souhláska nebo jako součást některých dvojhlásek
     my $o_ang = chr(3629); # funguje jako ráz před samohláskou nebo jako součást některých samohlásek
     my $sara_a = chr(3632);
     my $sara_aa = chr(3634);
+    my $sara_ii = chr(3637);
     my $sara_uee = chr(3639);
     my $sara_e = chr(3648);
     my $sara_ae = chr(3649);
@@ -181,6 +183,7 @@ sub inicializovat
         {
             $prevod->{$sara_e.$tsouhlaska.$sara_uee.chr($tony+$k).$o_ang} = $rsouhlaska.'űá'.$tony[$k];
         }
+        $prevod->{$sara_e.$tsouhlaska.$sara_ii.$yo_yak} = $rsouhlaska.'ia';
         # Není jasné, jakou samohlásku by mělo představovat maitaikhu, které není doprovázeno jiným samohláskovým znakem. Vyskytlo se slovo "ก็", googlí výslovnost mi připomíná otevřené "o".
         $prevod->{$tsouhlaska.$maitaikhu} = $rsouhlaska.'ɔ';
         # The inherent vowels are /a/ in open syllables (CV) and /o/ in closed syllables (CVC).
