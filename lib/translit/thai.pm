@@ -125,7 +125,7 @@ sub inicializovat
     my $sara_ai1 = chr(3651); # maimuan
     my $sara_ai2 = chr(3652); # maimalai
     my $cislice = 3664;
-    my @samohlasky = ('a', undef, 'á', undef, 'i', 'í', 'ü', 'ű', 'u', 'ú');
+    my @samohlasky = ('a', 'â', 'á', undef, 'i', 'í', 'ü', 'ű', 'u', 'ú');
     # Uložit do tabulky samostatné souhlásky. Zatím se nezabývat inherentními
     # samohláskami. Jednak nevím, jak bychom odlišili případ, kdy je samohláska,
     # která může být inherentní, uvedena explicitně, jednak nevím, jak se odliší
