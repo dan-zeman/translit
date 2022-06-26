@@ -21,6 +21,7 @@ use translit::tibetan;
 use translit::mkhedruli;
 use translit::hebrew;
 use translit::ethiopic;
+use translit::thai;
 use translit::khmer;
 use translit::hangeul;
 use translit::han2pinyin;

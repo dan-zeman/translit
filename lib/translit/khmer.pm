@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 # Funkce pro přípravu transliterace z khmerského písma do latinky.
-# (c) 2008 Dan Zeman <zeman@ufal.mff.cuni.cz>
+# Copyright © 2008 Dan Zeman <zeman@ufal.mff.cuni.cz>
 # Licence: GNU GPL
 
 package translit::khmer;
