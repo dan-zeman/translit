@@ -126,19 +126,26 @@ sub inicializovat
     # inherentní samohlásku.
     for(my $i = 3585; $i <= 3630; $i++)
     {
-        my $souhlaska = chr($i);
-        $prevod->{$souhlaska} = $alt{$i}[0];
+        my $tsouhlaska = chr($i);
+        my $rsouhlaska = $alt{$i}[0];
+        $prevod->{$tsouhlaska} = $rsouhlaska;
         # Přidat slabiky začínající touto souhláskou.
         for(my $j = 0; $j <= $#samohlasky; $j++)
         {
             if(defined($samohlasky[$i]))
             {
-                $prevod->{$souhlaska.chr($samohlasky+$i)} = $alt{$i}[0].$samohlasky[$i];
+                $prevod->{$tsouhlaska.chr($samohlasky+$i)} = $rsouhlaska.$samohlasky[$i];
             }
         }
         # Sara e = 3648.
-        $prevod->{chr(3648).$souhlaska} = $alt{$i}[0].'é';
-        $prevod->{chr(3648).$souhlaska.chr(3632)} = $alt{$i}[0].'e';
+        $prevod->{chr(3648).$tsouhlaska} = $rsouhlaska.'é';
+        $prevod->{chr(3648).$tsouhlaska.chr(3632)} = $rsouhlaska.'e';
+        # Sara ae = 3649.
+        $prevod->{chr(3649).$tsouhlaska} = $rsouhlaska.'ǽ';
+        $prevod->{chr(3649).$tsouhlaska.chr(3632)} = $rsouhlaska.'æ';
+        # Sara o = 3650.
+        $prevod->{chr(3650).$tsouhlaska} = $rsouhlaska.'ó';
+        $prevod->{chr(3650).$tsouhlaska.chr(3632)} = $rsouhlaska.'o';
     }
     # The inherent vowels are /a/ in open syllables (CV) and /o/ in closed syllables (CVC).
     # For example, ถนน transcribes /tʰànǒn/ "road". There are a few exceptions in Pali loanwords, where the inherent vowel of an open syllable is /o/.
