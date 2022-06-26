@@ -115,8 +115,10 @@ sub inicializovat
     # Kód začátku segmentu s thajským písmem.
     my $pocatek = 3585;
     my $souhlasky = 3585;
+    my $samohlasky = 3632;
     my $cislice = 3664;
     my $virama = $pocatek+77;
+    my @samohlasky = ('a', undef, 'á', undef, 'i', 'í', 'ü', 'ű', 'u', 'ú');
     # Uložit do tabulky samostatné souhlásky. Zatím se nezabývat inherentními
     # samohláskami. Jednak nevím, jak bychom odlišili případ, kdy je samohláska,
     # která může být inherentní, uvedena explicitně, jednak nevím, jak se odliší
@@ -126,6 +128,14 @@ sub inicializovat
     {
         my $souhlaska = chr($i);
         $prevod->{$souhlaska} = $alt{$i}[0];
+        # Přidat slabiky začínající touto souhláskou.
+        for(my $j = 0; $j <= $#samohlasky; $j++)
+        {
+            if(defined($samohlasky[$i]))
+            {
+                $prevod->{$souhlaska.chr($samohlasky+$i)} = $alt{$i}[0].$samohlasky[$i];
+            }
+        }
     }
     # The inherent vowels are /a/ in open syllables (CV) and /o/ in closed syllables (CVC).
     # For example, ถนน transcribes /tʰànǒn/ "road". There are a few exceptions in Pali loanwords, where the inherent vowel of an open syllable is /o/.
