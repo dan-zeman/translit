@@ -125,7 +125,7 @@ sub inicializovat
     my $sara_o = chr(3650);
     my $sara_ai1 = chr(3651); # maimuan
     my $sara_ai2 = chr(3652); # maimalai
-    my $maitaikhu = chr(3655);
+    my $maitaikhu = chr(3655); # mai taikhu = stick that climbs and squats (hůl, která šplhá a dřepuje); vypadá jako malá thajská osmička; zkracuje samohlásky
     my $cislice = 3664;
     my @samohlasky = ('a', 'â', 'á', undef, 'i', 'í', 'ü', 'ű', 'u', 'ú');
     my @tony = ('¹', '²', '³', '⁴');
@@ -185,13 +185,17 @@ sub inicializovat
     $prevod->{chr(3658)} = $tony[2];
     $prevod->{chr(3659)} = $tony[3];
     # Další diakritika.
-    $prevod->{chr(3660)} = ''; # thanthakhat indicates that the previous letter is silent ###!!! we should not convert it to an empty string, it is not reversible
+    $prevod->{chr(3660)} = ''; # thanthakhat (meaning "capital punishment") indicates that the previous letter is silent ###!!! we should not convert it to an empty string, it is not reversible
     # Číslice.
     for(my $i = 0; $i<=9; $i++)
     {
         my $src = chr($cislice+$i);
         $prevod->{$src} = $i;
     }
+    # Interpunkce a další znaky.
+    $prevod->{chr(3631)} = '.'; # paiyannoi se používá u zkratek
+    $prevod->{chr(3674)} = ''; # angkhankhu je konec sloky, oddílu, kapitoly
+    $prevod->{chr(3675)} = ''; # khomut je konec kapitoly, dokumentu, příběhu
 }
 
 
