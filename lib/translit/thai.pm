@@ -116,6 +116,7 @@ sub inicializovat
     my $pocatek = 3585;
     my $souhlasky = 3585;
     my $samohlasky = 3632;
+    my $tony = 3656;
     my $o_ang = chr(3629); # funguje jako ráz před samohláskou nebo jako součást některých samohlásek
     my $sara_a = chr(3632);
     my $sara_aa = chr(3634);
@@ -126,6 +127,7 @@ sub inicializovat
     my $sara_ai2 = chr(3652); # maimalai
     my $cislice = 3664;
     my @samohlasky = ('a', 'â', 'á', undef, 'i', 'í', 'ü', 'ű', 'u', 'ú');
+    my @tony = ('¹', '²', '³', '⁴');
     # Uložit do tabulky samostatné souhlásky. Zatím se nezabývat inherentními
     # samohláskami. Jednak nevím, jak bychom odlišili případ, kdy je samohláska,
     # která může být inherentní, uvedena explicitně, jednak nevím, jak se odliší
@@ -142,6 +144,11 @@ sub inicializovat
             if(defined($samohlasky[$j]))
             {
                 $prevod->{$tsouhlaska.chr($samohlasky+$j)} = $rsouhlaska.$samohlasky[$j];
+                # Značka tónu se může volitelně objevit mezi souhláskou a samohláskou.
+                for(my $k = 0; $k <= 3; $k++)
+                {
+                    $prevod->{$tsouhlaska.chr($tony+$k).chr($samohlasky+$j)} = $rsouhlaska.$samohlasky[$j].$tony[$k];
+                }
             }
         }
         # Sara e = 3648.
@@ -167,10 +174,10 @@ sub inicializovat
         ###!!! We currently cannot convert 'เฉพาะ' correctly to 'čʰabʰɔ' because we do not have any consonant clusters covered.
     }
     # Tóny.
-    $prevod->{chr(3656)} = '¹';
-    $prevod->{chr(3657)} = '²';
-    $prevod->{chr(3658)} = '³';
-    $prevod->{chr(3659)} = '⁴';
+    $prevod->{chr(3656)} = $tony[0];
+    $prevod->{chr(3657)} = $tony[1];
+    $prevod->{chr(3658)} = $tony[2];
+    $prevod->{chr(3659)} = $tony[3];
     # Další diakritika.
     $prevod->{chr(3660)} = ''; # thanthakhat indicates that the previous letter is silent ###!!! we should not convert it to an empty string, it is not reversible
     # Číslice.
