@@ -116,10 +116,12 @@ sub inicializovat
     my $pocatek = 3585;
     my $souhlasky = 3585;
     my $samohlasky = 3632;
-    my $tony = 3656;
+    local $tony = 3656;
     my $yo_yak = chr(3618); # vyskytuje se jako souhláska nebo jako součást některých dvojhlásek
+    my $wo_waen = chr(3623); # vyskytuje se jako souhláska nebo jako součást některých dvojhlásek
     my $o_ang = chr(3629); # funguje jako ráz před samohláskou nebo jako součást některých samohlásek
     my $sara_a = chr(3632);
+    my $maihanakat = chr(3633);
     my $sara_aa = chr(3634);
     my $sara_am = chr(3635);
     my $sara_ii = chr(3637);
@@ -132,7 +134,7 @@ sub inicializovat
     my $maitaikhu = chr(3655); # mai taikhu = stick that climbs and squats (hůl, která šplhá a dřepuje); vypadá jako malá thajská osmička; zkracuje samohlásky
     my $cislice = 3664;
     my @samohlasky = ('a', 'â', 'á', 'ã', 'i', 'í', 'ü', 'ű', 'u', 'ú'); # ã = 'am' = sara am = chr(3635)
-    my @tony = ('¹', '²', '³', '⁴');
+    local @tony = ('¹', '²', '³', '⁴');
     # Uložit do tabulky samostatné souhlásky. Zatím se nezabývat inherentními
     # samohláskami. Jednak nevím, jak bychom odlišili případ, kdy je samohláska,
     # která může být inherentní, uvedena explicitně, jednak nevím, jak se odliší
@@ -148,12 +150,8 @@ sub inicializovat
         {
             if(defined($samohlasky[$j]))
             {
-                $prevod->{$tsouhlaska.chr($samohlasky+$j)} = $rsouhlaska.$samohlasky[$j];
                 # Značka tónu se může volitelně objevit mezi souhláskou a samohláskou.
-                for(my $k = 0; $k <= 3; $k++)
-                {
-                    $prevod->{$tsouhlaska.chr($tony+$k).chr($samohlasky+$j)} = $rsouhlaska.$samohlasky[$j].$tony[$k];
-                }
+                tonovat($prevod, $tsouhlaska, chr($samohlasky+$j), $rsouhlaska.$samohlasky[$j]);
             }
         }
         # Sara e = 3648.
@@ -170,6 +168,13 @@ sub inicializovat
         # Sara ai = 3651 (maimuan) a 3652 (maimalai); nevím, jaký je mezi nimi rozdíl.
         $prevod->{$sara_ai1.$tsouhlaska} = $rsouhlaska.'ai';
         $prevod->{$sara_ai2.$tsouhlaska} = $rsouhlaska.'ai';
+        # Dvojhlásky.
+        # Sara ia (podle RTGS se jak dlouhá, tak krátká přepisuje "ia").
+        tonovat($prevod, $sara_e.$tsouhlaska.$sara_ii, $yo_yak, $rsouhlaska.'íá');
+        # Sara uea (podle RTGS se jak dlouhá, tak krátká přepisuje "uea").
+        tonovat($prevod, $sara_e.$tsouhlaska.$sara_uee, $o_ang, $rsouhlaska.'űá');
+        # Sara ua (podle RTGS se jak dlouhá, tak krátká přepisuje "ua").
+        tonovat($prevod, $tsouhlaska.$maihanakat, $wo_waen, $rsouhlaska.'úá');
         # Další kombinace.
         $prevod->{$tsouhlaska.$o_ang} = $rsouhlaska.'ɔː'; ###!!! Zatím nekonzistentní označování délky samohlásky, ale u otevřeného o bych musel použít combining acute accent.
         # Pozor! Pokud za souhláskou následuje o ang, neznamená to automaticky, že o ang označuje samohlásku 'ɔː'.
@@ -183,13 +188,6 @@ sub inicializovat
         $prevod->{$sara_e.$tsouhlaska.$o_ang.$sara_a} = $rsouhlaska.'oe';
         $prevod->{$sara_e.$tsouhlaska.$maitaikhu} = $rsouhlaska.'e'; ###!!! vyskytuje se následované souhláskou wo waen; tvoří dvojhlásku "ew", podle RTGS přepisovanou "eo"
         $prevod->{$tsouhlaska.$maitaikhu.$o_ang} = $rsouhlaska.'ɔ'; ###!!! vyskytuje se následované souhláskou yo yak; tvoří dvojhlásku "ɔi", podle RTGS přepisovanou "oi"
-        $prevod->{$sara_e.$tsouhlaska.$sara_uee.$o_ang} = $rsouhlaska.'űá'; ###!!! dvojhláska, podle RTGS přepisovaná "uea"
-        # Značka tónu se může volitelně objevit mezi sara_uee a o_ang.
-        for(my $k = 0; $k <= 3; $k++)
-        {
-            $prevod->{$sara_e.$tsouhlaska.$sara_uee.chr($tony+$k).$o_ang} = $rsouhlaska.'űá'.$tony[$k];
-        }
-        $prevod->{$sara_e.$tsouhlaska.$sara_ii.$yo_yak} = $rsouhlaska.'ia';
         # Není jasné, jakou samohlásku by mělo představovat maitaikhu, které není doprovázeno jiným samohláskovým znakem. Vyskytlo se slovo "ก็", googlí výslovnost mi připomíná otevřené "o".
         $prevod->{$tsouhlaska.$maitaikhu} = $rsouhlaska.'ɔ';
         # The inherent vowels are /a/ in open syllables (CV) and /o/ in closed syllables (CVC).
@@ -214,6 +212,28 @@ sub inicializovat
     $prevod->{chr(3631)} = '.'; # paiyannoi se používá u zkratek
     $prevod->{chr(3674)} = ''; # angkhankhu je konec sloky, oddílu, kapitoly
     $prevod->{chr(3675)} = ''; # khomut je konec kapitoly, dokumentu, příběhu
+}
+
+
+
+#------------------------------------------------------------------------------
+# Vygeneruje převody pro slabiku bez tónové značky a pro odpovídající slabiky
+# s různými tónovými značkami. Hlavní problém, který zde řešíme, tkví v tom,
+# že volitelná tónová značka může rozdělovat sekvenci znaků, které identifikují
+# samohlásku nebo dvojhlásku.
+#------------------------------------------------------------------------------
+sub tonovat
+{
+    # Odkaz na hash, do kterého se má ukládat převodní tabulka.
+    my $prevod = shift;
+    my $pred = shift; # znaky před případnou tónovou značkou
+    my $po = shift; # znaky po případné tónové značce
+    my $rbez = shift; # romanizace slabiky bez tónové značky
+    $prevod->{$pred.$po} = $rbez;
+    for(my $k = 0; $k <= 3; $k++)
+    {
+        $prevod->{$pred.chr($tony+$k).$po} = $rbez.$tony[$k];
+    }
 }
 
 
