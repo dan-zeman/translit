@@ -38,7 +38,7 @@ sub prevest
     my $prevod = shift; # odkaz na hash s převodní tabulkou
     my $retezec = shift;
     my $maxl = shift; # maximální možná délka zdrojové skupiny znaků
-    $maxl = 3 unless($maxl);
+    $maxl = 4 unless($maxl);
     my $vysledek;
     my @chars = split(//, $retezec);
     my $l = scalar(@chars);
