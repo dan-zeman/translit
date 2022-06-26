@@ -122,6 +122,8 @@ sub inicializovat
     my $sara_e = chr(3648);
     my $sara_ae = chr(3649);
     my $sara_o = chr(3650);
+    my $sara_ai1 = chr(3651); # maimuan
+    my $sara_ai2 = chr(3652); # maimalai
     my $cislice = 3664;
     my @samohlasky = ('a', undef, 'á', undef, 'i', 'í', 'ü', 'ű', 'u', 'ú');
     # Uložit do tabulky samostatné souhlásky. Zatím se nezabývat inherentními
@@ -151,6 +153,9 @@ sub inicializovat
         # Sara o = 3650.
         $prevod->{$sara_o.$tsouhlaska} = $rsouhlaska.'ó';
         $prevod->{$sara_o.$tsouhlaska.$sara_a} = $rsouhlaska.'o';
+        # Sara ai = 3651 (maimuan) a 3652 (maimalai); nevím, jaký je mezi nimi rozdíl.
+        $prevod->{$sara_ai1.$tsouhlaska} = $rsouhlaska.'ai';
+        $prevod->{$sara_ai2.$tsouhlaska} = $rsouhlaska.'ai';
         # Další kombinace.
         $prevod->{$tsouhlaska.$o_ang} = $rsouhlaska.'ɔː'; ###!!! Zatím nekonzistentní označování délky samohlásky, ale u otevřeného o bych musel použít combining acute accent.
         $prevod->{$sara_e.$tsouhlaska.$sara_aa.$sara_a} = $rsouhlaska.'ɔ';
