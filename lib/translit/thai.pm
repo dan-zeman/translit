@@ -120,6 +120,7 @@ sub inicializovat
     my $o_ang = chr(3629); # funguje jako ráz před samohláskou nebo jako součást některých samohlásek
     my $sara_a = chr(3632);
     my $sara_aa = chr(3634);
+    my $sara_uee = chr(3639);
     my $sara_e = chr(3648);
     my $sara_ae = chr(3649);
     my $sara_o = chr(3650);
@@ -174,6 +175,14 @@ sub inicializovat
         $prevod->{$sara_e.$tsouhlaska.$o_ang.$sara_a} = $rsouhlaska.'oe';
         $prevod->{$sara_e.$tsouhlaska.$maitaikhu} = $rsouhlaska.'e'; ###!!! vyskytuje se následované souhláskou wo waen; tvoří dvojhlásku "ew", podle RTGS přepisovanou "eo"
         $prevod->{$tsouhlaska.$maitaikhu.$o_ang} = $rsouhlaska.'ɔ'; ###!!! vyskytuje se následované souhláskou yo yak; tvoří dvojhlásku "ɔi", podle RTGS přepisovanou "oi"
+        $prevod->{$sara_e.$tsouhlaska.$sara_uee.$o_ang} = $rsouhlaska.'űá'; ###!!! dvojhláska, podle RTGS přepisovaná "uea"
+        # Značka tónu se může volitelně objevit mezi sara_uee a o_ang.
+        for(my $k = 0; $k <= 3; $k++)
+        {
+            $prevod->{$sara_e.$tsouhlaska.$sara_uee.chr($tony+$k).$o_ang} = $rsouhlaska.'űá'.$tony[$k];
+        }
+        # Není jasné, jakou samohlásku by mělo představovat maitaikhu, které není doprovázeno jiným samohláskovým znakem. Vyskytlo se slovo "ก็", googlí výslovnost mi připomíná otevřené "o".
+        $prevod->{$tsouhlaska.$maitaikhu} = $rsouhlaska.'ɔ';
         # The inherent vowels are /a/ in open syllables (CV) and /o/ in closed syllables (CVC).
         # For example, ถนน transcribes /tʰànǒn/ "road". There are a few exceptions in Pali loanwords, where the inherent vowel of an open syllable is /o/.
         # The circumfix vowels, such as เ–าะ /ɔʔ/, encompass a preceding consonant with an inherent vowel. For example, /pʰɔʔ/ is written เพาะ, and /tɕʰapʰɔʔ/ "only" is written เฉพาะ
