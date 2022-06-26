@@ -137,7 +137,7 @@ sub inicializovat
         # Přidat slabiky začínající touto souhláskou.
         for(my $j = 0; $j <= $#samohlasky; $j++)
         {
-            if(defined($samohlasky[$i]))
+            if(defined($samohlasky[$j]))
             {
                 $prevod->{$tsouhlaska.chr($samohlasky+$j)} = $rsouhlaska.$samohlasky[$j];
             }
