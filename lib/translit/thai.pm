@@ -121,6 +121,7 @@ sub inicializovat
     my $o_ang = chr(3629); # funguje jako ráz před samohláskou nebo jako součást některých samohlásek
     my $sara_a = chr(3632);
     my $sara_aa = chr(3634);
+    my $sara_am = chr(3635);
     my $sara_ii = chr(3637);
     my $sara_uee = chr(3639);
     my $sara_e = chr(3648);
@@ -171,6 +172,11 @@ sub inicializovat
         $prevod->{$sara_ai2.$tsouhlaska} = $rsouhlaska.'ai';
         # Další kombinace.
         $prevod->{$tsouhlaska.$o_ang} = $rsouhlaska.'ɔː'; ###!!! Zatím nekonzistentní označování délky samohlásky, ale u otevřeného o bych musel použít combining acute accent.
+        # Pozor! Pokud za souhláskou následuje o ang, neznamená to automaticky, že o ang označuje samohlásku 'ɔː'.
+        # Může se stát, že aktuální souhláska je koncovou souhláskou předcházející slabiky a o ang naopak zahajuje novou slabiku.
+        # Tuto druhou interpretaci určitě musíme zvolit, když za o ang následuje samohláska, která by jinak zůstala plonková.
+        # Příklad, který se vyskytl, je "ผ่านอำนาจ" a měl by zřejmě být přepsán "pʰá¹n'ãnáč".
+        $prevod->{$tsouhlaska.$o_ang.$sara_am} = $rsouhlaska."'ã";
         $prevod->{$sara_e.$tsouhlaska.$sara_aa.$sara_a} = $rsouhlaska.'ɔ';
         $prevod->{$tsouhlaska.$maitaikhu.$o_ang} = $rsouhlaska.'ɔ';
         $prevod->{$sara_e.$tsouhlaska.$o_ang} = $rsouhlaska.'óé';
