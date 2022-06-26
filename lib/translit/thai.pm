@@ -148,11 +148,8 @@ sub inicializovat
         # Přidat slabiky začínající touto souhláskou.
         for(my $j = 0; $j <= $#samohlasky; $j++)
         {
-            if(defined($samohlasky[$j]))
-            {
-                # Značka tónu se může volitelně objevit mezi souhláskou a samohláskou.
-                tonovat($prevod, $tsouhlaska, chr($samohlasky+$j), $rsouhlaska.$samohlasky[$j]);
-            }
+            # Značka tónu se může volitelně objevit mezi souhláskou a samohláskou.
+            tonovat($prevod, $tsouhlaska, chr($samohlasky+$j), $rsouhlaska.$samohlasky[$j]);
         }
         # Sara e = 3648.
         $prevod->{$sara_e.$tsouhlaska} = $rsouhlaska.'é';
@@ -183,7 +180,11 @@ sub inicializovat
         # Může se stát, že aktuální souhláska je koncovou souhláskou předcházející slabiky a o ang naopak zahajuje novou slabiku.
         # Tuto druhou interpretaci určitě musíme zvolit, když za o ang následuje samohláska, která by jinak zůstala plonková.
         # Příklad, který se vyskytl, je "ผ่านอำนาจ" a měl by zřejmě být přepsán "pʰá¹n'ãnáč".
-        $prevod->{$tsouhlaska.$o_ang.$sara_am} = $rsouhlaska."'ã";
+        for(my $j = 0; $j <= $#samohlasky; $j++)
+        {
+            # Značka tónu se může volitelně objevit mezi souhláskou a samohláskou.
+            tonovat($prevod, $tsouhlaska.$o_ang, chr($samohlasky+$j), $rsouhlaska."'".$samohlasky[$j]);
+        }
         $prevod->{$sara_e.$tsouhlaska.$sara_aa.$sara_a} = $rsouhlaska.'ɔ';
         $prevod->{$tsouhlaska.$maitaikhu.$o_ang} = $rsouhlaska.'ɔ';
         $prevod->{$sara_e.$tsouhlaska.$o_ang} = $rsouhlaska.'óé';
@@ -212,6 +213,7 @@ sub inicializovat
     }
     # Interpunkce a další znaky.
     $prevod->{chr(3631)} = '.'; # paiyannoi se používá u zkratek
+    $prevod->{chr(3654)} = ''; # maiyamok udává, že předcházející slovo nebo fráze je reduplikované
     $prevod->{chr(3674)} = ''; # angkhankhu je konec sloky, oddílu, kapitoly
     $prevod->{chr(3675)} = ''; # khomut je konec kapitoly, dokumentu, příběhu
 }
