@@ -171,6 +171,8 @@ sub inicializovat
     $prevod->{chr(3657)} = '²';
     $prevod->{chr(3658)} = '³';
     $prevod->{chr(3659)} = '⁴';
+    # Další diakritika.
+    $prevod->{chr(3660)} = ''; # thanthakhat indicates that the previous letter is silent ###!!! we should not convert it to an empty string, it is not reversible
     # Číslice.
     for(my $i = 0; $i<=9; $i++)
     {
