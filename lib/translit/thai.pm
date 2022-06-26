@@ -125,6 +125,7 @@ sub inicializovat
     my $sara_o = chr(3650);
     my $sara_ai1 = chr(3651); # maimuan
     my $sara_ai2 = chr(3652); # maimalai
+    my $maitaikhu = chr(3655);
     my $cislice = 3664;
     my @samohlasky = ('a', 'â', 'á', undef, 'i', 'í', 'ü', 'ű', 'u', 'ú');
     my @tony = ('¹', '²', '³', '⁴');
@@ -154,9 +155,11 @@ sub inicializovat
         # Sara e = 3648.
         $prevod->{$sara_e.$tsouhlaska} = $rsouhlaska.'é';
         $prevod->{$sara_e.$tsouhlaska.$sara_a} = $rsouhlaska.'e';
+        $prevod->{$sara_e.$tsouhlaska.$maitaikhu} = $rsouhlaska.'e';
         # Sara ae = 3649.
         $prevod->{$sara_ae.$tsouhlaska} = $rsouhlaska.'ǽ';
         $prevod->{$sara_ae.$tsouhlaska.$sara_a} = $rsouhlaska.'æ';
+        $prevod->{$sara_ae.$tsouhlaska.$maitaikhu} = $rsouhlaska.'æ';
         # Sara o = 3650.
         $prevod->{$sara_o.$tsouhlaska} = $rsouhlaska.'ó';
         $prevod->{$sara_o.$tsouhlaska.$sara_a} = $rsouhlaska.'o';
@@ -166,8 +169,11 @@ sub inicializovat
         # Další kombinace.
         $prevod->{$tsouhlaska.$o_ang} = $rsouhlaska.'ɔː'; ###!!! Zatím nekonzistentní označování délky samohlásky, ale u otevřeného o bych musel použít combining acute accent.
         $prevod->{$sara_e.$tsouhlaska.$sara_aa.$sara_a} = $rsouhlaska.'ɔ';
+        $prevod->{$tsouhlaska.$maitaikhu.$o_ang} = $rsouhlaska.'ɔ';
         $prevod->{$sara_e.$tsouhlaska.$o_ang} = $rsouhlaska.'óé';
         $prevod->{$sara_e.$tsouhlaska.$o_ang.$sara_a} = $rsouhlaska.'oe';
+        $prevod->{$sara_e.$tsouhlaska.$maitaikhu} = $rsouhlaska.'e'; ###!!! vyskytuje se následované souhláskou wo waen; tvoří dvojhlásku "ew", podle RTGS přepisovanou "eo"
+        $prevod->{$tsouhlaska.$maitaikhu.$o_ang} = $rsouhlaska.'ɔ'; ###!!! vyskytuje se následované souhláskou yo yak; tvoří dvojhlásku "ɔi", podle RTGS přepisovanou "oi"
         # The inherent vowels are /a/ in open syllables (CV) and /o/ in closed syllables (CVC).
         # For example, ถนน transcribes /tʰànǒn/ "road". There are a few exceptions in Pali loanwords, where the inherent vowel of an open syllable is /o/.
         # The circumfix vowels, such as เ–าะ /ɔʔ/, encompass a preceding consonant with an inherent vowel. For example, /pʰɔʔ/ is written เพาะ, and /tɕʰapʰɔʔ/ "only" is written เฉพาะ
