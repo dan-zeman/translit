@@ -136,6 +136,9 @@ sub inicializovat
                 $prevod->{$souhlaska.chr($samohlasky+$i)} = $alt{$i}[0].$samohlasky[$i];
             }
         }
+        # Sara e = 3648.
+        $prevod->{chr(3648).$souhlaska} = $alt{$i}[0].'é';
+        $prevod->{chr(3648).$souhlaska.chr(3632)} = $alt{$i}[0].'e';
     }
     # The inherent vowels are /a/ in open syllables (CV) and /o/ in closed syllables (CVC).
     # For example, ถนน transcribes /tʰànǒn/ "road". There are a few exceptions in Pali loanwords, where the inherent vowel of an open syllable is /o/.
