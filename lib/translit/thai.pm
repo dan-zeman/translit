@@ -156,10 +156,16 @@ sub inicializovat
         $prevod->{$sara_e.$tsouhlaska.$sara_aa.$sara_a} = $rsouhlaska.'ɔ';
         $prevod->{$sara_e.$tsouhlaska.$o_ang} = $rsouhlaska.'óé';
         $prevod->{$sara_e.$tsouhlaska.$o_ang.$sara_a} = $rsouhlaska.'oe';
+        # The inherent vowels are /a/ in open syllables (CV) and /o/ in closed syllables (CVC).
+        # For example, ถนน transcribes /tʰànǒn/ "road". There are a few exceptions in Pali loanwords, where the inherent vowel of an open syllable is /o/.
+        # The circumfix vowels, such as เ–าะ /ɔʔ/, encompass a preceding consonant with an inherent vowel. For example, /pʰɔʔ/ is written เพาะ, and /tɕʰapʰɔʔ/ "only" is written เฉพาะ
+        ###!!! We currently cannot convert 'เฉพาะ' correctly to 'čʰabʰɔ' because we do not have any consonant clusters covered.
     }
-    # The inherent vowels are /a/ in open syllables (CV) and /o/ in closed syllables (CVC).
-    # For example, ถนน transcribes /tʰànǒn/ "road". There are a few exceptions in Pali loanwords, where the inherent vowel of an open syllable is /o/.
-    # The circumfix vowels, such as เ–าะ /ɔʔ/, encompass a preceding consonant with an inherent vowel. For example, /pʰɔʔ/ is written เพาะ, and /tɕʰapʰɔʔ/ "only" is written เฉพาะ
+    # Tóny.
+    $prevod->{chr(3656)} = '¹';
+    $prevod->{chr(3657)} = '²';
+    $prevod->{chr(3658)} = '³';
+    $prevod->{chr(3659)} = '⁴';
     # Číslice.
     for(my $i = 0; $i<=9; $i++)
     {
