@@ -127,7 +127,7 @@ sub inicializovat
     my $sara_ai2 = chr(3652); # maimalai
     my $maitaikhu = chr(3655); # mai taikhu = stick that climbs and squats (hůl, která šplhá a dřepuje); vypadá jako malá thajská osmička; zkracuje samohlásky
     my $cislice = 3664;
-    my @samohlasky = ('a', 'â', 'á', undef, 'i', 'í', 'ü', 'ű', 'u', 'ú');
+    my @samohlasky = ('a', 'â', 'á', 'ã', 'i', 'í', 'ü', 'ű', 'u', 'ú'); # ã = 'am' = sara am = chr(3635)
     my @tony = ('¹', '²', '³', '⁴');
     # Uložit do tabulky samostatné souhlásky. Zatím se nezabývat inherentními
     # samohláskami. Jednak nevím, jak bychom odlišili případ, kdy je samohláska,
