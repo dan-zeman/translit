@@ -11,6 +11,7 @@ binmode(STDERR, ':utf8');
 use lib '/home/zeman/projekty/translit/lib';
 use translit;
 use translit::han2pinyin;
+use Unicode::Normalize;
 use Getopt::Long;
 
 my $language;
@@ -27,7 +28,11 @@ my $maxl = translit::inicializovat_vse(\%prevod, $language, $scientific);
 sub transliterate
 {
     my $text = shift;
-    return translit::han2pinyin::pinyin(translit::prevest(\%prevod, $text, $maxl));
+    # Ideally the transliteration tables should already return normalized Unicode
+    # but just in case they don't, apply NFC here. In theory this may not be enough
+    # for the borderline of the current $text and the place where it is inserted,
+    # but such errors are unlikely.
+    return NFC(translit::han2pinyin::pinyin(translit::prevest(\%prevod, $text, $maxl)));
 }
 
 # Read CoNLL-U from STDIN.
