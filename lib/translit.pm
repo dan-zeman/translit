@@ -9,6 +9,7 @@ use translit::armen;
 use translit::greek;
 use translit::cyril;
 use translit::syriac;
+use translit::arab;
 use translit::urdu;
 use translit::uyghur;
 use translit::brahmi;
