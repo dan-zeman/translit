@@ -5,6 +5,83 @@
 
 package translit;
 use utf8;
+use translit::armen;
+use translit::greek;
+use translit::cyril;
+use translit::syriac;
+use translit::urdu;
+use translit::uyghur;
+use translit::brahmi;
+use translit::tibetan;
+use translit::mkhedruli;
+use translit::hebrew;
+use translit::ethiopic;
+use translit::thai;
+use translit::khmer;
+use translit::hangeul;
+use translit::han2pinyin;
+
+
+
+#------------------------------------------------------------------------------
+# Initialize transliteration from any known script to Latin.
+#------------------------------------------------------------------------------
+sub inicializovat_vse
+{
+    my $prevod = shift; # reference to the hash where the transliteration table should be stored
+    my $language = shift; # language code may trigger different transliteration for some scripts (optional parameter)
+    my $scientific = shift; # prefer scientific transliteration if there are multiple options
+    # 0x500: Armenian
+    translit::armen::inicializovat($prevod);
+    translit::greek::inicializovat($prevod);
+    translit::cyril::inicializovat($prevod, $language);
+    translit::syriac::inicializovat($prevod);
+    # 0x600: Arabic
+    # The Arabic romanizations for Urdu and Uyghur are in conflict; the preferred language should be read the last,
+    # to overwrite any previous definition of conflicting characters.
+    if($language eq 'ug')
+    {
+        translit::urdu::inicializovat($prevod);
+        translit::uyghur::inicializovat($prevod);
+    }
+    else
+    {
+        translit::uyghur::inicializovat($prevod);
+        translit::urdu::inicializovat($prevod);
+    }
+    # 0x900: Devanagari (Hindi and other languages)
+    translit::brahmi::inicializovat($prevod, 2304, $scientific);
+    # 0x980: Bengali and Assamese
+    translit::brahmi::inicializovat($prevod, 2432, $scientific);
+    # 0xA00: Gurmukhi (Punjabi)
+    translit::brahmi::inicializovat($prevod, 2560, $scientific);
+    # 0xA80: Gujarati
+    translit::brahmi::inicializovat($prevod, 2688, $scientific);
+    # 0xB00: Oriya
+    translit::brahmi::inicializovat($prevod, 2816, $scientific);
+    # 0xB80: Tamil
+    translit::brahmi::inicializovat($prevod, 2944, $scientific);
+    # 0xC00: Telugu
+    translit::brahmi::inicializovat($prevod, 3072, $scientific);
+    # 0xC80: Kannada
+    translit::brahmi::inicializovat($prevod, 3200, $scientific);
+    # 0xD00: Malayalam
+    translit::brahmi::inicializovat($prevod, 3328, $scientific);
+    # 0x10A0: Mkhedruli (Georgian)
+    translit::mkhedruli::inicializovat($prevod);
+    # 0x1200: Ethiopic (Amharic and other languages)
+    translit::ethiopic::inicializovat($prevod);
+    translit::tibetan::inicializovat($prevod);
+    translit::hebrew::inicializovat($prevod);
+    # 0xE00: Thai
+    translit::thai::inicializovat($prevod);
+    # 0x1780: Khmer
+    translit::khmer::inicializovat($prevod);
+    # Korean Hangeul
+    translit::hangeul::inicializovat($prevod);
+    # Note: There is currently no initialization for Chinese (Han) characters.
+    # Instead of prevest(), one then has to call han2pinyin::pinyin().
+}
 
 
 
