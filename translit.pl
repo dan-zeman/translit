@@ -10,7 +10,9 @@ binmode(STDOUT, ':utf8');
 binmode(STDERR, ':utf8');
 use lib '/home/zeman/projekty/translit/lib';
 use translit;
+use translit::han2pinyin;
 use Getopt::Long;
+
 my $language;
 my $scientific;
 GetOptions
@@ -19,11 +21,10 @@ GetOptions
     'scientific' => \$scientific
 );
 
-
-
-translit::inicializovat_vse(\%prevod, $language, $scientific);
+# Initialize the transliteration tables.
+my $maxl = translit::inicializovat_vse(\%prevod, $language, $scientific);
 # han2pinyin se neinicializuje a misto prevest() se vola han2pinyin::pinyin()
 while(<>)
 {
-    print(translit::han2pinyin::pinyin(translit::prevest(\%prevod, $_)));
+    print(translit::han2pinyin::pinyin(translit::prevest(\%prevod, $_, $maxl)));
 }

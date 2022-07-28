@@ -41,13 +41,21 @@ sub inicializovat_vse
     # to overwrite any previous definition of conflicting characters.
     if($language eq 'ug')
     {
+        translit::arab::inicializovat($prevod);
         translit::urdu::inicializovat($prevod);
         translit::uyghur::inicializovat($prevod);
+    }
+    elsif($language eq 'ur')
+    {
+        translit::arab::inicializovat($prevod);
+        translit::uyghur::inicializovat($prevod);
+        translit::urdu::inicializovat($prevod);
     }
     else
     {
         translit::uyghur::inicializovat($prevod);
         translit::urdu::inicializovat($prevod);
+        translit::arab::inicializovat($prevod);
     }
     # 0x900: Devanagari (Hindi and other languages)
     translit::brahmi::inicializovat($prevod, 2304, $scientific);
@@ -81,6 +89,21 @@ sub inicializovat_vse
     translit::hangeul::inicializovat($prevod);
     # Note: There is currently no initialization for Chinese (Han) characters.
     # Instead of prevest(), one then has to call han2pinyin::pinyin().
+    # Figure out and return the maximum length of an input sequence.
+    my $maxl = 1; map {$maxl = max($maxl, length($_))} (keys(%{$prevod}));
+    return $maxl;
+}
+
+
+
+#------------------------------------------------------------------------------
+# Returns maximum of two values.
+#------------------------------------------------------------------------------
+sub max
+{
+    my $a = shift;
+    my $b = shift;
+    return $a>=$b ? $a : $b;
 }
 
 
