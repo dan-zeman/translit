@@ -201,7 +201,7 @@ sub inicializovat
         # VOWEL SIGN AU.
         if($pocatek==3328) # malajálam
         {
-            pridat_slabiky($prevod, $src, $tgt, 3415, ['u'], $virama); ###!!! kombinace s virámem tady přidáváme podruhé zbytečně, v tabulce už jsou
+            pridat_slabiky($prevod, $src, $tgt, 3415, ['au'], $virama); ###!!! kombinace s virámem tady přidáváme podruhé zbytečně, v tabulce už jsou
         }
     }
     # Anusvara způsobuje, že předcházející samohláska je nosová.
