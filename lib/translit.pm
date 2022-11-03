@@ -58,24 +58,29 @@ sub inicializovat_vse
         translit::urdu::inicializovat($prevod);
         translit::arab::inicializovat($prevod);
     }
+    my $brahmi_lat = $scientific;
+    if($brahmi_lat == $scientific && $language =~ m/^(ta|ml|kn|te)$/i)
+    {
+        $brahmi_lat++;
+    }
     # 0x900: Devanagari (Hindi and other languages)
-    translit::brahmi::inicializovat($prevod, 2304, $scientific);
+    translit::brahmi::inicializovat($prevod, 2304, $brahmi_lat);
     # 0x980: Bengali and Assamese
-    translit::brahmi::inicializovat($prevod, 2432, $scientific);
+    translit::brahmi::inicializovat($prevod, 2432, $brahmi_lat);
     # 0xA00: Gurmukhi (Punjabi)
-    translit::brahmi::inicializovat($prevod, 2560, $scientific);
+    translit::brahmi::inicializovat($prevod, 2560, $brahmi_lat);
     # 0xA80: Gujarati
-    translit::brahmi::inicializovat($prevod, 2688, $scientific);
+    translit::brahmi::inicializovat($prevod, 2688, $brahmi_lat);
     # 0xB00: Oriya
-    translit::brahmi::inicializovat($prevod, 2816, $scientific);
+    translit::brahmi::inicializovat($prevod, 2816, $brahmi_lat);
     # 0xB80: Tamil
-    translit::brahmi::inicializovat($prevod, 2944, $scientific);
+    translit::brahmi::inicializovat($prevod, 2944, $brahmi_lat);
     # 0xC00: Telugu
-    translit::brahmi::inicializovat($prevod, 3072, $scientific);
+    translit::brahmi::inicializovat($prevod, 3072, $brahmi_lat);
     # 0xC80: Kannada
-    translit::brahmi::inicializovat($prevod, 3200, $scientific);
+    translit::brahmi::inicializovat($prevod, 3200, $brahmi_lat);
     # 0xD00: Malayalam
-    translit::brahmi::inicializovat($prevod, 3328, $scientific);
+    translit::brahmi::inicializovat($prevod, 3328, $brahmi_lat);
     # 0x10A0: Mkhedruli (Georgian)
     translit::mkhedruli::inicializovat($prevod);
     # 0x1200: Ethiopic (Amharic and other languages)
