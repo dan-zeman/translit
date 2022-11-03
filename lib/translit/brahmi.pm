@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 # Funkce pro přípravu transliterace z indického písma do latinky.
-# Copyright © 2007, 2008, 2009, 2010 Dan Zeman <zeman@ufal.mff.cuni.cz>
+# Copyright © 2007, 2008, 2009, 2010, 2022 Dan Zeman <zeman@ufal.mff.cuni.cz>
 # Licence: GNU GPL
 # 2.8.2009: přidána vědecká transliterace (potřebná pro články, ale nepraktická v terminálu)
 # 21.11.2010: přidán přepis do systému WX (jednoznačný přepis používaný v Hajdarábádu, zuboretné t=w, d=x)
@@ -16,75 +16,86 @@ use utf8;
 # Čtvrtý sloupec = Transliterace WX (používaná indickými počítačovými lingvisty, prosté zobrazení do oblasti ASCII).
 @altlat =
 (
-    ['m'.chr(771), 'm'.chr(771), 'm'.chr(771), 'z'], # čandrabindu = m s vlnovkou
-    ['ñ',          'ṁ',          'ṁ',          'M'], # anusvár = n s vlnovkou, resp. m s tečkou nahoře
-    ["'",          'ḥ',          'ḥ',          'H'], # visarg
-    ['a',          'a',          'a',          'a'],
-    ['á',          'ā',          'ā',          'A'],
-    ['i',          'i',          'i',          'i'],
-    ['í',          'ī',          'ī',          'I'],
-    ['u',          'u',          'u',          'u'],
-    ['ú',          'ū',          'ū',          'U'],
-    ['ŕ',          'r'.chr(805), 'r'.chr(805), 'q'], # slabikotvorné r = r s kroužkem dole
-    ['ĺ',          'l'.chr(805), 'l'.chr(805), 'Q'], # slabikotvorné l = l s kroužkem dole
-    ['ê',          'ê',          'ê',          'eV'], # čandra e
-    ['e',          'è',          'e',          'eV'], # krátké e
-    ['é',          'e',          'ē',          'e'],  # normální e je polodlouhé nebo dlouhé, ale ne v drávidských jazycích
-    ['ai',         'ai',         'ai',         'E'],  # vyslovuje se jako ae, otevřené dlouhé e
-    ['ô',          'ô',          'ô',          'OY'], # čandra o
-    ['o',          'ò',          'o',          'oV'], # krátké o
-    ['ó',          'o',          'ō',          'o'],  # normální o je polodlouhé nebo dlouhé
-    ['au',         'au',         'au',         'O'],  # vyslovuje se jako ao, otevřené dlouhé o, jako v anglickém "automatic"
-    ['k',          'k',          'k',          'k'],
-    ['kh',         'kh',         'kh',         'K'],
-    ['g',          'g',          'g',          'g'],
-    ['gh',         'gh',         'gh',         'G'],
-    ['ŋ',          'ṅ',          'ṅ',          'f'], # ng
-    ['č',          'c',          'c',          'c'],
-    ['čh',         'ch',         'ch',         'C'],
-    ['dž',         'j',          'j',          'j'],
-    ['džh',        'jh',         'jh',         'J'],
-    ['ň',          'ñ',          'ñ',          'F'],
-    ['ţ',          'ṭ',          'ṭ',          't'], # retroflexní t
-    ['ţh',         'ṭh',         'ṭh',         'T'],
-    ['đ',          'ḍ',          'ḍ',          'd'],
-    ['đh',         'ḍh',         'ḍh',         'D'],
-    ['ņ',          'ṇ',          'ṇ',          'N'],
-    ['t',          't',          't',          'w'], # zubové t
-    ['th',         'th',         'th',         'W'],
-    ['d',          'd',          'd',          'x'],
-    ['dh',         'dh',         'dh',         'X'],
-    ['n',          'n',          'n',          'n'],
-    ['ŉ',          'n',          'n',          'n'], # "NNNA", specifické pro tamilštinu
-    ['p',          'p',          'p',          'p'],
-    ['ph',         'ph',         'ph',         'P'],
-    ['b',          'b',          'b',          'b'],
-    ['bh',         'bh',         'bh',         'B'],
-    ['m',          'm',          'm',          'm'],
-    ['j',          'y',          'y',          'y'],
-    ['r',          'r',          'r',          'r'],
-    ['ŗ',          'r',          'r',          'r'], # tvrdé R z jižních jazyků
-    ['l',          'l',          'l',          'l'],
-    ['ļ',          'ḷ',          'ḷ',          'lY'], # tvrdé (retroflexní?) L (maráthština)
-    ['ř',          'l',          'l',          'l'], # něco mezi L, americkým R a Ž nebo Ř (tamilština, malajálamština)
-    ['v',          'v',          'v',          'v'],
-    ['ś',          'ś',          'ś',          'S'], # normální š
-    ['š',          'ṣ',          'ṣ',          'R'], # retroflexní š ze sanskrtu, v hindštině se vyslovuje stejně jako normální š
-    ['s',          's',          's',          's'],
-    ['h',          'h',          'h',          'h'],
-    ['q',          'q',          'q',          'kZ'],
-    ['ch',         'x',          'x',          'KZ'],
-    ['ğ',          'ğ',          'ğ',          'gZ'], # hrdelní gh z arabštiny
-    ['z',          'z',          'z',          'jZ'],
-    ['ŗ',          'ṛ',          'ṛ',          'dZ'], # DDDHA = DDA + NUKTA
-    ['ŗh',         'ṛh',         'ṛh',         'DZ'], # RHA = DDHA + NUKTA
-    ['f',          'f',          'f',          'PZ'],
-    ['ĵ',          'ŷ',          'ŷ',          'yZ'], # YYA = YA + NUKTA (zřejmě odpovídá JYA z ISCII (bengálština, ásámština a urijština), výslovnost snad něco mezi j a ď, můj přepis je "j", resp. vědecky "y" se stříškou)
-    ['ŕ',          'r'.chr(772).chr(805), 'r'.chr(772).chr(805), 'q'], # VOCALIC RR
-    ['ĺ',          'l'.chr(772).chr(805), 'l'.chr(772).chr(805), 'Q'], # VOCALIC LL
-    ['óm',         'om',         'ōm',         'om'], # posvátná slabika z modliteb
-    ['r',          'r',          'r',          'r'], # ásámské R je v bengálském písmu až za číslicemi
-    ['w',          'w',          'w',          'w'], # ásámské W je v bengálském písmu až za číslicemi
+    ['m'.chr(771), 'm'.chr(771), 'm'.chr(771), 'z'],  #  0 čandrabindu = m s vlnovkou
+    ['ñ',          'ṁ',          'ṁ',          'M'],  #  1 anusvár = n s vlnovkou, resp. m s tečkou nahoře
+    ["'",          'ḥ',          'ḥ',          'H'],  #  2 visarg
+    ['a',          'a',          'a',          'a'],  #  3
+    ['á',          'ā',          'ā',          'A'],  #  4
+    ['i',          'i',          'i',          'i'],  #  5
+    ['í',          'ī',          'ī',          'I'],  #  6
+    ['u',          'u',          'u',          'u'],  #  7
+    ['ú',          'ū',          'ū',          'U'],  #  8
+    ['ŕ',          'r'.chr(805), 'r'.chr(805), 'q'],  #  9 slabikotvorné r = r s kroužkem dole
+    ['ĺ',          'l'.chr(805), 'l'.chr(805), 'Q'],  # 10 slabikotvorné l = l s kroužkem dole ###!!! v malajálamštině nejasné: samostatná pozice (\xD0C, 3340) se jmenuje LETTER VOCALIC L jako v jiných písmech; ale nesamostatná pozice (\xD44, 3396) se jmenuje VOWEL SIGN VOCALIC RR, to bychom přepisovali jinak
+    ['ê',          'ê',          'ê',          'eV'], # 11 čandra e
+    ['e',          'è',          'e',          'eV'], # 12 krátké e
+    ['é',          'e',          'ē',          'e'],  # 13 normální e je polodlouhé nebo dlouhé, ale ne v drávidských jazycích
+    ['ai',         'ai',         'ai',         'E'],  # 14 vyslovuje se jako ae, otevřené dlouhé e
+    ['ô',          'ô',          'ô',          'OY'], # 15 čandra o
+    ['o',          'ò',          'o',          'oV'], # 16 krátké o
+    ['ó',          'o',          'ō',          'o'],  # 17 normální o je polodlouhé nebo dlouhé
+    ['au',         'au',         'au',         'O'],  # 18 vyslovuje se jako ao, otevřené dlouhé o, jako v anglickém "automatic"
+    ['k',          'k',          'k',          'k'],  # 19
+    ['kh',         'kh',         'kh',         'K'],  # 20
+    ['g',          'g',          'g',          'g'],  # 21
+    ['gh',         'gh',         'gh',         'G'],  # 22
+    ['ŋ',          'ṅ',          'ṅ',          'f'],  # 23 ng
+    ['č',          'c',          'c',          'c'],  # 24
+    ['čh',         'ch',         'ch',         'C'],  # 25
+    ['dž',         'j',          'j',          'j'],  # 26
+    ['džh',        'jh',         'jh',         'J'],  # 27
+    ['ň',          'ñ',          'ñ',          'F'],  # 28
+    ['ţ',          'ṭ',          'ṭ',          't'],  # 29 retroflexní t
+    ['ţh',         'ṭh',         'ṭh',         'T'],  # 30
+    ['đ',          'ḍ',          'ḍ',          'd'],  # 31
+    ['đh',         'ḍh',         'ḍh',         'D'],  # 32
+    ['ņ',          'ṇ',          'ṇ',          'N'],  # 33
+    ['t',          't',          't',          'w'],  # 34 zubové t
+    ['th',         'th',         'th',         'W'],  # 35
+    ['d',          'd',          'd',          'x'],  # 36
+    ['dh',         'dh',         'dh',         'X'],  # 37
+    ['n',          'n',          'n',          'n'],  # 38
+    ['ŉ',          'n',          'n',          'n'],  # 39 "NNNA", specifické pro tamilštinu
+    ['p',          'p',          'p',          'p'],  # 40
+    ['ph',         'ph',         'ph',         'P'],  # 41
+    ['b',          'b',          'b',          'b'],  # 42
+    ['bh',         'bh',         'bh',         'B'],  # 43
+    ['m',          'm',          'm',          'm'],  # 44
+    ['j',          'y',          'y',          'y'],  # 45
+    ['r',          'r',          'r',          'r'],  # 46
+    ['ŗ',          'ṟ',          'ṟ',          'r'],  # 47 tvrdé R z jižních jazyků
+    ['l',          'l',          'l',          'l'],  # 48
+    ['ļ',          'ḷ',          'ḷ',          'lY'], # 49 tvrdé (retroflexní?) L (maráthština)
+    ['ř',          'ḻ',          'ḻ',          'l'],  # 50 něco mezi L, americkým R a Ž nebo Ř (tamilština, malajálamština)
+    ['v',          'v',          'v',          'v'],  # 51
+    ['ś',          'ś',          'ś',          'S'],  # 52 normální š
+    ['š',          'ṣ',          'ṣ',          'R'],  # 53 retroflexní š ze sanskrtu, v hindštině se vyslovuje stejně jako normální š
+    ['s',          's',          's',          's'],  # 54
+    ['h',          'h',          'h',          'h'],  # 55
+    ['q',          'q',          'q',          'kZ'], # 56
+    ['ch',         'x',          'x',          'KZ'], # 57
+    ['ğ',          'ğ',          'ğ',          'gZ'], # 58 hrdelní gh z arabštiny
+    ['z',          'z',          'z',          'jZ'], # 59
+    ['ŗ',          'ṛ',          'ṛ',          'dZ'], # 60 DDDHA = DDA + NUKTA
+    ['ŗh',         'ṛh',         'ṛh',         'DZ'], # 61 RHA = DDHA + NUKTA
+    ['f',          'f',          'f',          'PZ'], # 62
+    ['ĵ',          'ŷ',          'ŷ',          'yZ'], # 63 YYA = YA + NUKTA (zřejmě odpovídá JYA z ISCII (bengálština, ásámština a urijština), výslovnost snad něco mezi j a ď, můj přepis je "j", resp. vědecky "y" se stříškou)
+    ['ŕ',          'r'.chr(772).chr(805), 'r'.chr(772).chr(805), 'q'], # 64 VOCALIC RR
+    ['ĺ',          'l'.chr(772).chr(805), 'l'.chr(772).chr(805), 'Q'], # 65 VOCALIC LL
+    ['óm',         'om',         'ōm',         'om'], # 66 posvátná slabika z modliteb
+    ['r',          'r',          'r',          'r'],  # 67 ásámské R je v bengálském písmu až za číslicemi
+    ['w',          'w',          'w',          'w'],  # 68 ásámské W je v bengálském písmu až za číslicemi
+    ['m',          'm',          'm',          'm'],  # 69 malajálamské CHILLU M
+    ['j',          'y',          'y',          'y'],  # 70 malajálamské CHILLU Y
+    ['ř',          'ḻ',          'ḻ',          'l'],  # 71 malajálamské CHILLU LLL (něco mezi L, americkým R a Ž nebo Ř)
+    ['ņ',          'ṇ',          'ṇ',          'N'],  # 72 malajálamské CHILLU NN
+    ['n',          'n',          'n',          'n'],  # 73 malajálamské CHILLU N
+    ['ŗ',          'ṟ',          'ṟ',          'r'],  # 74 malajálamské CHILLU RR (tvrdé R z jižních jazyků)
+    ['l',          'l',          'l',          'l'],  # 75 malajálamské CHILLU L
+    ['ļ',          'ḷ',          'ḷ',          'lY'], # 76 malajálamské CHILLU LL (tvrdé (retroflexní?) L)
+    ['k',          'k',          'k',          'k'],  # 77 malajálamské CHILLU K
+    ['ŕ',          'r'.chr(804), 'r'.chr(804), 'q'],  # 78 slabikotvorné RR = r s přehláskou dole
+    ['ĺ',          'l'.chr(804), 'l'.chr(804), 'Q'],  # 79 slabikotvorné LL = l s přehláskou dole
 );
 
 
@@ -135,8 +146,7 @@ sub inicializovat
     for(my $i = 0; $i<=$#samohlasky; $i++)
     {
         my $src = chr($samohlasky+$i);
-        $prevod->{$src} = $samohlasky[$i];
-        $maxl = length($src) if(length($src)>$maxl);
+        pridat($prevod, $src, $samohlasky[$i]);
     }
     # Sestavit převodní tabulku všech souhlásek.
     # Vyrobíme dvě pole. Prvek prvního pole je indická souhláska, prvek druhého je její latinský protějšek.
@@ -185,43 +195,69 @@ sub inicializovat
         my $src = $indicke_souhlasky[$i];
         my $tgt = $latinske_souhlasky[$i];
         pridat_slabiky($prevod, $src, $tgt, $diasamohlasky, \@diasamohlasky, $virama);
+        # "MALAYALAM AU LENGTH MARK" jsem viděl v přepisu anglického "Brown" ("braun").
+        # Využilo se inherentního "a" v "ra", za něj se připojilo tohle.
+        # Není mi jasné, čím se využití tohoto znaku liší od plnohodnotného
+        # VOWEL SIGN AU.
+        if($pocatek==3328) # malajálam
+        {
+            pridat_slabiky($prevod, $src, $tgt, 3415, ['u'], $virama); ###!!! kombinace s virámem tady přidáváme podruhé zbytečně, v tabulce už jsou
+        }
     }
     # Anusvara způsobuje, že předcházející samohláska je nosová.
     # Anusvára se na konci vyslovuje m, jinde n, ň nebo m podle následující souhlásky.
     # Znaménko candrabindu rovněž nazalizuje předcházející samohlásku.
-    $prevod->{chr($candrabindu)} = $latcandrabindu;
-    $prevod->{chr($anusvara)} = $latanusvara;
+    pridat($prevod, chr($candrabindu), $latcandrabindu);
+    pridat($prevod, chr($anusvara), $latanusvara);
     # Visarga přidává neznělý dech za samohláskou.
-    $prevod->{chr($visarga)} = $latvisarga;
+    pridat($prevod, chr($visarga), $latvisarga);
     # Avagraha může nahrazovat vynechané hlásky na spoji sandhi, ale také může označovat prodlouženou slabiku ("cooool") aj.
-    $prevod->{chr($avagraha)} = '’';
+    pridat($prevod, chr($avagraha), '’');
     # Interpunkce: danda ukončuje větu. Dvojitá danda se používá zřídka, např. v básních ukončuje dvojverší nebo sloku, zatímco danda ukončuje verš uvnitř sloky.
-    $prevod->{chr($danda)} = '.';
-    $prevod->{chr($ddanda)} = ':';
+    pridat($prevod, chr($danda), '.');
+    pridat($prevod, chr($ddanda), ':');
     # Číslice.
     for(my $i = 0; $i<=9; $i++)
     {
         my $src = chr($cislice+$i);
-        $prevod->{$src} = $i;
-        $maxl = length($src) if(length($src)>$maxl);
+        pridat($prevod, $src, $i);
     }
     # Další znaky.
-    $prevod->{chr($om)} = $lat[66];
+    pridat($prevod, chr($om), $lat[66]);
     # Za číslicemi mohou být další znaky, které jsou důležité v některých jazycích daného písma, ale neodpovídají stejné pozici v jiných písmech.
     # $pocatek:
     # 0x900 = 2304: Devanagari script (Hindi etc.)
-    # 0x980 = 2432: Bengali script. (also Assamese)
-    # 0xA00 = 2560: Gurmukhi script (for Punjabi).
-    # 0xA80 = 2688: Gujarati script.
-    # 0xB00 = 2816: Oriya script.
-    # 0xB80 = 2944: Tamil script.
-    # 0xC00 = 3072: Telugu script.
-    # 0xC80 = 3200: Kannada script.
-    # 0xD00 = 3328: Malayalam script.
-    if($pocatek>=2560) # gurmukhí a výše
+    # 0x980 = 2432: Bengali script (also Assamese)
+    # 0xA00 = 2560: Gurmukhi script (for Punjabi)
+    # 0xA80 = 2688: Gujarati script
+    # 0xB00 = 2816: Oriya script
+    # 0xB80 = 2944: Tamil script
+    # 0xC00 = 3072: Telugu script
+    # 0xC80 = 3200: Kannada script
+    # 0xD00 = 3328: Malayalam script
+    if($pocatek==2560) # gurmukhí
     {
         # Znaménko tippi v písmu gurmukhí označuje nazalizaci stejně jako bindí (anusvár).
-        $prevod->{chr($tippi)} = $latanusvara;
+        pridat($prevod, chr($tippi), $latanusvara);
+    }
+    if($pocatek==3328) # malajálam
+    {
+        # Některá písmena mají variantu zvanou "chillu". Předpokládám, že jde
+        # o souhlásku na konci slabiky, tj. bez inherentní samohlásky.
+        for(my $i = 3412; $i <= 3414; $i++) # M, Y, LLL
+        {
+            pridat($prevod, chr($i), $lat[69+$i-3412]);
+        }
+        for(my $i = 3450; $i <= 3455; $i++) # NN, N, RR, L, LL, K
+        {
+            pridat($prevod, chr($i), $lat[72+$i-3450]);
+        }
+        # Slabikotvorné (vocalic) RR a LL jako samostatné znaky se nacházejí
+        # těsně před číslicemi, jinde než ostatní samohlásky.
+        for(my $i = 3424; $i <= 3425; $i++) # VOCALIC RR, VOCALIC LL
+        {
+            pridat($prevod, chr($i), $lat[78+$i-3424]);
+        }
     }
     return $maxl;
 }
@@ -239,18 +275,34 @@ sub pridat_slabiky
     my $srcsam = shift; # kód první nesamostatné samohlásky v daném indickém písmu
     my $tgtsam = shift; # odkaz na pole přepisů nesamostatných samohlásek do latinky
     my $virama = shift; # kód znaku virám v daném indickém písmu
-    $prevod->{$src} = $tgt.'a';
-    $maxl = length($src) if(length($src)>$maxl);
+    # local $maxl seshora
+    pridat($prevod, $src, $tgt.'a');
     # Znaménko virám likviduje implicitní samohlásku "a".
     my $src2 = chr($virama);
-    $prevod->{$src.$src2} = $tgt;
-    $maxl = length($src.$src2) if(length($src.$src2)>$maxl);
+    pridat($prevod, $src.$src2, $tgt);
     for(my $j = 0; $j<=$#{$tgtsam}; $j++)
     {
         my $src2 = chr($srcsam+$j);
-        $prevod->{$src.$src2} = $tgt.$tgtsam->[$j];
-        $maxl = length($src.$src2) if(length($src.$src2)>$maxl);
+        pridat($prevod, $src.$src2, $tgt.$tgtsam->[$j]);
     }
+}
+
+
+
+#------------------------------------------------------------------------------
+# Přidá do převodní tabulky zdrojový a cílový řetězec. Navíc aktualizuje
+# hodnotu maxl (která je deklarovaná jako local v hlavní funkci).
+#------------------------------------------------------------------------------
+sub pridat
+{
+    my $prevod = shift; # odkaz na převodní tabulku (hash)
+    my $src = shift; # řetězec ve zdrojovém písmu
+    my $tgt = shift; # řetězec v cílovém písmu (latince)
+    # local $maxl
+    $prevod->{$src} = $tgt;
+    my $l = length($src);
+    $maxl = $l if($l>$maxl);
+    return $maxl;
 }
 
 
