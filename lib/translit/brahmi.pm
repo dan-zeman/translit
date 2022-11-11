@@ -85,15 +85,21 @@ use utf8;
     ['óm',         'om',         'ōm',         'om'], # 66 posvátná slabika z modliteb
     ['r',          'r',          'r',          'r'],  # 67 ásámské R je v bengálském písmu až za číslicemi
     ['w',          'w',          'w',          'w'],  # 68 ásámské W je v bengálském písmu až za číslicemi
-    ['mŭ',         'mŭ',         'mŭ',         'm'],  # 69 malajálamské CHILLU M
-    ['jŭ',         'yŭ',         'yŭ',         'y'],  # 70 malajálamské CHILLU Y
-    ['řŭ',         'ḻŭ',         'ḻŭ',         'l'],  # 71 malajálamské CHILLU LLL (něco mezi L, americkým R a Ž nebo Ř)
-    ['ņŭ',         'ṇŭ',         'ṇŭ',         'N'],  # 72 malajálamské CHILLU NN
-    ['nŭ',         'nŭ',         'nŭ',         'n'],  # 73 malajálamské CHILLU N
-    ['ŗŭ',         'ṟŭ',         'ṟŭ',         'r'],  # 74 malajálamské CHILLU RR (tvrdé R z jižních jazyků)
-    ['lŭ',         'lŭ',         'lŭ',         'l'],  # 75 malajálamské CHILLU L
-    ['ļŭ',         'ḷŭ',         'ḷŭ',         'lY'], # 76 malajálamské CHILLU LL (tvrdé (retroflexní?) L)
-    ['kŭ',         'kŭ',         'kŭ',         'k'],  # 77 malajálamské CHILLU K
+    # Písmeno chillu představuje souhlásku bez inherentní samohlásky a dělá to bez pomoci virámu (malajálamsky zvaného candrakkala).
+    # Pokud malajálamské slovo končí souhláskou s virámem, často se ve skutečnosti vyslovuje s velmi krátkou středovou zavřenou samohláskou -ŭ.
+    # Pokud chceme vyjádřit, že ve skutečnosti není vyslovena ani tato krátká samohláska, místo souhlásky s virámem použijeme souhlásku chillu.
+    # Problém je, že v transliteraci tyto souhlásky těžko odlišíme. To bychom se museli ještě více odchýlit od přepisu ostatních indických písem
+    # a všechny virámy v malajálamštině přepisovat jako ŭ. Nebo aspoň ty na konci slova a ty, za kterými je ZERO WIDTH NON-JOINER (\x200C).
+    # Zkusíme místo toho alespoň ve vědeckém přepisu přidat COMBINING COMMA ABOVE RIGHT.
+    ['m',          'm'.chr(789), 'm'.chr(789), 'm'],  # 69 malajálamské CHILLU M
+    ['j',          'y'.chr(789), 'y'.chr(789), 'y'],  # 70 malajálamské CHILLU Y
+    ['ř',          'ḻ'.chr(789), 'ḻ'.chr(789), 'l'],  # 71 malajálamské CHILLU LLL (něco mezi L, americkým R a Ž nebo Ř)
+    ['ņ',          'ṇ'.chr(789), 'ṇ'.chr(789), 'N'],  # 72 malajálamské CHILLU NN
+    ['n',          'n'.chr(789), 'n'.chr(789), 'n'],  # 73 malajálamské CHILLU N
+    ['ŗ',          'ṟ'.chr(789), 'ṟ'.chr(789), 'r'],  # 74 malajálamské CHILLU RR (tvrdé R z jižních jazyků)
+    ['l',          'l'.chr(789), 'l'.chr(789), 'l'],  # 75 malajálamské CHILLU L
+    ['ļ',          'ḷ'.chr(789), 'ḷ'.chr(789), 'lY'], # 76 malajálamské CHILLU LL (tvrdé (retroflexní?) L)
+    ['k',          'k'.chr(789), 'k'.chr(789), 'k'],  # 77 malajálamské CHILLU K
     ['ŕ',          'r'.chr(804), 'r'.chr(804), 'q'],  # 78 slabikotvorné RR = r s přehláskou dole
     ['ĺ',          'l'.chr(804), 'l'.chr(804), 'Q'],  # 79 slabikotvorné LL = l s přehláskou dole
 );
