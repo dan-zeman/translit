@@ -85,15 +85,15 @@ use utf8;
     ['óm',         'om',         'ōm',         'om'], # 66 posvátná slabika z modliteb
     ['r',          'r',          'r',          'r'],  # 67 ásámské R je v bengálském písmu až za číslicemi
     ['w',          'w',          'w',          'w'],  # 68 ásámské W je v bengálském písmu až za číslicemi
-    ['m',          'm',          'm',          'm'],  # 69 malajálamské CHILLU M
-    ['j',          'y',          'y',          'y'],  # 70 malajálamské CHILLU Y
-    ['ř',          'ḻ',          'ḻ',          'l'],  # 71 malajálamské CHILLU LLL (něco mezi L, americkým R a Ž nebo Ř)
-    ['ņ',          'ṇ',          'ṇ',          'N'],  # 72 malajálamské CHILLU NN
-    ['n',          'n',          'n',          'n'],  # 73 malajálamské CHILLU N
-    ['ŗ',          'ṟ',          'ṟ',          'r'],  # 74 malajálamské CHILLU RR (tvrdé R z jižních jazyků)
-    ['l',          'l',          'l',          'l'],  # 75 malajálamské CHILLU L
-    ['ļ',          'ḷ',          'ḷ',          'lY'], # 76 malajálamské CHILLU LL (tvrdé (retroflexní?) L)
-    ['k',          'k',          'k',          'k'],  # 77 malajálamské CHILLU K
+    ['mŭ',         'mŭ',         'mŭ',         'm'],  # 69 malajálamské CHILLU M
+    ['jŭ',         'yŭ',         'yŭ',         'y'],  # 70 malajálamské CHILLU Y
+    ['řŭ',         'ḻŭ',         'ḻŭ',         'l'],  # 71 malajálamské CHILLU LLL (něco mezi L, americkým R a Ž nebo Ř)
+    ['ņŭ',         'ṇŭ',         'ṇŭ',         'N'],  # 72 malajálamské CHILLU NN
+    ['nŭ',         'nŭ',         'nŭ',         'n'],  # 73 malajálamské CHILLU N
+    ['ŗŭ',         'ṟŭ',         'ṟŭ',         'r'],  # 74 malajálamské CHILLU RR (tvrdé R z jižních jazyků)
+    ['lŭ',         'lŭ',         'lŭ',         'l'],  # 75 malajálamské CHILLU L
+    ['ļŭ',         'ḷŭ',         'ḷŭ',         'lY'], # 76 malajálamské CHILLU LL (tvrdé (retroflexní?) L)
+    ['kŭ',         'kŭ',         'kŭ',         'k'],  # 77 malajálamské CHILLU K
     ['ŕ',          'r'.chr(804), 'r'.chr(804), 'q'],  # 78 slabikotvorné RR = r s přehláskou dole
     ['ĺ',          'l'.chr(804), 'l'.chr(804), 'Q'],  # 79 slabikotvorné LL = l s přehláskou dole
 );
