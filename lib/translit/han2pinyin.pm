@@ -4002,41 +4002,15 @@ sub pinyin
         '《' => '«', # x300A left double angle bracket
         '》' => '»', # x300B right double angle bracket
         '「' => '“', # x300C left corner bracket
-        '」' => '”', # x300D right corner bracket
-        ###!!! Tyhle fullwidth věci předělat forcyklem a prostým přepočtem na ASCII, spláchneme tím i číslice a anglickou abecedu!
-        '！' => '!', # xFF01 fullwidth exclamation mark
-        '＂' => '"', # xFF02 fullwidth quotation mark
-        '＃' => '#', # xFF03 fullwidth number sign
-        '＄' => '$', # xFF04 fullwidth dollar sign
-        '％' => '%', # xFF05 fullwidth percent sign
-        '＆' => '&', # xFF06 fullwidth ampersand
-        '＇' => "'", # xFF07 fullwidth apostrophe
-        '（' => '(', # xFF08 fullwidth left parenthesis
-        '）' => ')', # xFF09 fullwidth right parenthesis
-        '＊' => '*', # xFF0A fullwidth asterisk
-        '＋' => '+', # xFF0B fullwidth plus sign
-        '，' => ',', # xFF0C fullwidth comma
-        '－' => '-', # xFF0D fullwidth hyphen-minus
-        '．' => '.', # xFF0E fullwidth full stop
-        '／' => '/', # xFF0F fullwidth solidus
-        '：' => ':', # xFF1A fullwidth colon
-        '；' => ';', # xFF1B fullwidth semicolon
-        '＜' => '<', # xFF1C fullwidth less-than sign
-        '＝' => '=', # xFF1D fullwidth equals sign
-        '＞' => '>', # xFF1E fullwidth greater-than sign
-        '？' => '?', # xFF1F fullwidth question mark
-        '＠' => '@', # xFF20 fullwidth commercial at
-        '［' => '[', # xFF3B fullwidth left square bracket
-        '＼' => '\', # xFF3C fullwidth reverse solidus
-        '］' => ']', # xFF3D fullwidth right square bracket
-        '＾' => '^', # xFF3E fullwidth circumflex accent
-        '＿' => '_', # xFF3F fullwidth low line
-        '｀' => '`', # xFF40 fullwidth grave accent
-        '｛' => '{', # xFF5B fullwidth left curly bracket
-        '｜' => '|', # xFF5C fullwidth vertical line
-        '｝' => '}', # xFF5D fullwidth right curly bracket
-        '～' => '~', # xFF5E fullwidth tilde
+        '」' => '”'  # x300D right corner bracket
     );
+    # Fullwidth ekvivalenty ASCII zvláštních znaků, číslic a anglické abecedy
+    # se nacházejí na xFF01 (fullwidth exclamation mark) až xFF5E (fullwidth tilde).
+    for(my $fullord = 65281; $fullord < 65374; $fullord++)
+    {
+        my $ascii = $fullord-65248;
+        $symboly{chr($fullord)} = chr($ascii);
+    }
     foreach my $znak (@znaky)
     {
         if(exists($py{$znak}) && $py{$znak} ne "")
