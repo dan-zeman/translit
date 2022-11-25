@@ -1,11 +1,16 @@
 #!/usr/bin/perl
 # Převede čínské znaky z UTF-8 na pinyin.
-# (c) 2007 Dan Zeman <zeman@ufal.mff.cuni.cz>
+# Copyright © 2007 Dan Zeman <zeman@ufal.mff.cuni.cz>
 # Licence: GNU GPL
 
 package translit::han2pinyin;
 use utf8;
 
+# Tabulku mám odněkud z webu. Nejsou v ní všechny znaky, chybějící budu podle
+# potřeby doplňovat. Čtení odpovídá standardní (mandarínské) čínštině. V jiných
+# jazycích, např. v kantonštině, by bylo jiné. Některé znaky umožňují více
+# čtení, budu brát vždy to první. Nevím, co znamená to číslo v závorce, možná
+# je to nějaká frekvence nebo váha.
 BEGIN
 {
     my $tabulka = <<EOF
@@ -165,6 +170,7 @@ U+4FA7	ce4(125)
 U+4FAE	wu3(32)
 U+4FB5	qin1(341)
 U+4FBF	bian4(1235) pian2(58)
+U+4FC2	xi4(0)
 U+4FC3	cu4(140)
 U+4FC4	e2(12)
 U+4FD7	su2(51)
@@ -3921,6 +3927,24 @@ sub pinyin
 {
     my $retezec = shift;
     my @znaky = split(//, $retezec);
+    # Kromě znaků, které mají ekvivalent v pinyinu, chceme také převést
+    # interpunkci a další symboly na jejich ekvivalenty používané v latince.
+    my %symboly =
+    (
+        '。' => '.', # x3002 ideographic full stop
+        '、' => ',', # x3001 ideographic comma
+        '《' => '«', # x300A left double angle bracket
+        '》' => '»', # x300B right double angle bracket
+        '「' => '“', # x300C left corner bracket
+        '」' => '”', # x300D right corner bracket
+        '！' => '!', # xFF01 fullwidth exclamation mark
+        '（' => '(', # xFF08 fullwidth left parenthesis
+        '）' => ')', # xFF09 fullwidth right parenthesis
+        '＋' => '+', # xFF0B fullwidth plus sign
+        '，' => ',', # xFF0C fullwidth comma
+        '：' => ':', # xFF1A fullwidth colon
+        '？' => '?', # xFF1F fullwidth question mark
+    );
     foreach my $znak (@znaky)
     {
         if(exists($py{$znak}) && $py{$znak} ne "")
@@ -3944,8 +3968,12 @@ sub pinyin
                 $znak = $apostrof.num2dia($znak);
             }
         }
+        elsif(exists($symboly{$znak}))
+        {
+            $znak = $symboly{$znak};
+        }
     }
-    return join("", @znaky);
+    return join('', @znaky);
 }
 
 
