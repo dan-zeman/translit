@@ -4001,8 +4001,21 @@ sub pinyin
         '〉' => '>', # x3009 right angle bracket
         '《' => '«', # x300A left double angle bracket
         '》' => '»', # x300B right double angle bracket
-        '「' => '“', # x300C left corner bracket
-        '」' => '”'  # x300D right corner bracket
+        '「' => '‘', # x300C left corner bracket
+        '」' => '’', # x300D right corner bracket
+        '『' => '“', # x300E left white corner bracket
+        '』' => '”', # x300F right white corner bracket
+        '【' => '[', # x3010 left black lenticular bracket
+        '】' => ']', # x3011 right black lenticular bracket
+        '〔' => '(', # x3014 left tortoise shell bracket
+        '〕' => ')', # x3015 right tortoise shell bracket
+        '〖' => '[', # x3016 left white lenticular bracket
+        '〗' => ']', # x3017 right white lenticular bracket
+        '〘' => '(', # x3018 left white tortoise shell bracket
+        '〙' => ')', # x3019 right white tortoise shell bracket
+        '〚' => '[', # x301A left white square bracket
+        '〛' => ']', # x301B right white square bracket
+        '〜' => '~'  # x301C wave dash
     );
     # Fullwidth ekvivalenty ASCII zvláštních znaků, číslic a anglické abecedy
     # se nacházejí na xFF01 (fullwidth exclamation mark) až xFF5E (fullwidth tilde).
