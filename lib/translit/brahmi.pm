@@ -123,12 +123,12 @@ sub inicializovat
     my $anusvara = $pocatek+2;
     my $visarga = $pocatek+3;
     my $samohlasky = $pocatek+5;
-    my $souhlasky = $pocatek+21;
-    my $nukta = $pocatek+60;
-    my $avagraha = $pocatek+61;
-    my $diasamohlasky = $pocatek+62;
-    my $virama = $pocatek+77;
-    my $om = $pocatek+80;
+    my $souhlasky = $pocatek==3456 ? $pocatek+26 : $pocatek+21;
+    my $nukta = $pocatek==3456 ? undef : $pocatek+60;
+    my $avagraha = $pocatek==3456 ? undef : $pocatek+61;
+    my $diasamohlasky = $pocatek==3456 ? $pocatek+79 : $pocatek+62;
+    my $virama = $pocatek==3456 ? undef : $pocatek+77;
+    my $om = $pocatek==3456 ? undef : $pocatek+80;
     my $souhlasky2 = $pocatek+88;
     my $danda = $pocatek+100;
     my $ddanda = $pocatek+101;
