@@ -81,6 +81,8 @@ sub inicializovat_vse
     translit::brahmi::inicializovat($prevod, 3200, $brahmi_lat);
     # 0xD00: Malayalam
     translit::brahmi::inicializovat($prevod, 3328, $brahmi_lat);
+    # 0xD80: Sinhala
+    translit::brahmi::inicializovat($prevod, 3456, $brahmi_lat);
     # 0x10A0: Mkhedruli (Georgian)
     translit::mkhedruli::inicializovat($prevod);
     # 0x1200: Ethiopic (Amharic and other languages)
