@@ -127,7 +127,7 @@ sub inicializovat
     my $nukta = $pocatek==3456 ? undef : $pocatek+60;
     my $avagraha = $pocatek==3456 ? undef : $pocatek+61;
     my $diasamohlasky = $pocatek==3456 ? $pocatek+79 : $pocatek+62;
-    my $virama = $pocatek==3456 ? undef : $pocatek+77;
+    my $virama = $pocatek==3456 ? 3530 : $pocatek+77;
     my $om = $pocatek==3456 ? undef : $pocatek+80;
     my $souhlasky2 = $pocatek+88;
     my $danda = $pocatek+100;
@@ -146,6 +146,13 @@ sub inicializovat
     my $latvisarga = $lat[2];
     my @samohlasky = @lat[3..18];
     my @diasamohlasky = @lat[4..18];
+    # Přídavné samohlásky pro sinhálštinu.
+    ###!!! Výhledově by se tohle mělo řešit nějak systematičtěji, přinejmenším pokud jde o různé varianty přepisu do latinky.
+    if($pocatek==3456)
+    {
+        @samohlasky = (@lat[3..4], 'æ', 'ǣ', @lat[5..8], 'ru', 'rū', 'lu', 'lū', 'e', 'ē', 'ai', 'o', 'ō', 'au');
+        @diasamohlasky = ($lat[4], 'æ', 'ǣ', @lat[5..8], 'ru', 'rū', 'lu', 'lū', 'e', 'ē', 'ai', 'o', 'ō', 'au');
+    }
     my @souhlasky = @lat[19..55];
     my @souhlasky2 = @lat[56..63];
     # Samostatné samohlásky.
