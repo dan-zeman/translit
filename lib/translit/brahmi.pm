@@ -152,9 +152,9 @@ sub inicializovat
     ###!!! Výhledově by se tohle mělo řešit nějak systematičtěji, přinejmenším pokud jde o různé varianty přepisu do latinky.
     if($pocatek==3456)
     {
-        @samohlasky = (@lat[3..4], 'æ', 'ǣ', @lat[5..8], 'ru', 'rū', 'lu', 'lū', 'e', 'ē', 'ai', 'o', 'ō', 'au');
+        @samohlasky = (@lat[3..4], 'æ', 'ǣ', @lat[5..8], 'ru', 'rū', 'lu', 'lū', 'e', 'ē', 'ai', 'o', 'ō', 'au'); # r̥, r̥̄, l̥, l̥̄
         @diasamohlasky = ($lat[4], 'æ', 'ǣ', @lat[5..8], 'ru', 'rū', 'lu', 'lū', 'e', 'ē', 'ai', 'o', 'ō', 'au');
-        @souhlasky = (@lat[19..23], 'g', @lat[24..28], 'n', 'j', @lat[29..33], 'ḍ', @lat[34..39], 'd', @lat[40..44], 'b', @lat[45..55], 'l', 'f');
+        @souhlasky = (@lat[19..23], 'ňg', @lat[24..28], 'jň', 'ňj', @lat[29..33], 'ňḍ', @lat[34..39], 'ňd', @lat[40..44], 'm̌b', @lat[45..55], 'ḷ', 'f');
     }
     # Samostatné samohlásky.
     for(my $i = 0; $i<=$#samohlasky; $i++)
