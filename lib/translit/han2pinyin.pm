@@ -12,6 +12,9 @@ use utf8;
 # čtení, budu brát vždy to první. Nevím, co znamená to číslo v závorce, možná
 # je to nějaká frekvence nebo váha.
 
+###!!! VIZ TÉŽ SKRIPT PAVLA STRAŇÁKA:
+###!!! https://github.com/stranak/hanzi-stats/blob/master/character-stats.pl
+
 # cat UD_Chinese*/*.conllu | grep -P 'translit =' | perl -CDS -pe 's/(\s|[\x{20}-\x{2FFF}])//g; if($_ ne "") {$_=join("\n", split(//, $_))."\n"}' | sort | uniq -c | sort -rn | charanal.pl | less
 BEGIN
 {
