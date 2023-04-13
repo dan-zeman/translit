@@ -20,3 +20,15 @@ Strawberry Perl), and you have cloned this repository as
 ```bash
 cat mltext.txt | perl -I /home/USER/translit/lib /home/USER/translit/translit.pl -s -l ml > transliterated.txt
 ```
+
+You tell the script the ISO 639-1 language code of the language of the text
+(here `ml` for Malayalam) using the `-l` option. This is not strictly necessary,
+as you will get the transliteration even without providing the correct language
+code. However, for some supported languages, the transliteration from the same
+writing system may slightly differ. For example, the Cyrillic letter _г_ will
+be transliterated as _g_ when the source language is Russian, and _h_ when it is
+Ukrainian.
+
+For direct transliteration of web pages (and also for demo of the currently
+supported languages), see
+[http://quest.ms.mff.cuni.cz/cgi-bin/zeman/translit/translit.pl](http://quest.ms.mff.cuni.cz/cgi-bin/zeman/translit/translit.pl).
