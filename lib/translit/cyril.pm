@@ -118,9 +118,11 @@ sub inicializovat
         1027 => 'Ď',
         1029 => 'DZ',
         1036 => 'Ť',
+        1037 => 'Ì',
         1107 => 'ď',
         1109 => 'dz',
         1116 => 'ť',
+        1117 => 'ì',  # CYRILLIC SMALL LETTER I WITH GRAVE is not considered a separate letter in Bulgarian/Macedonian and is only used to disambiguate the pronoun ѝ “her” (dative) from the conjunction и “and”.
         # staroslověnština
         1122 => 'Ě',  # YAT: Ѣ
         1123 => 'ě',  # YAT: ѣ
