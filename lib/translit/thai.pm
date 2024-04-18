@@ -135,6 +135,12 @@ sub inicializovat
     my $cislice = 3664;
     my @samohlasky = ('a', 'â', 'á', 'ã', 'i', 'í', 'ü', 'ű', 'u', 'ú'); # ã = 'am' = sara am = chr(3635)
     local @tony = ('¹', '²', '³', '⁴');
+    # Uložit do tabulky samohlásky jako záložní řešení, pokud bychom je někde
+    # nedokázali spojit se souhláskami.
+    for(my $j = 0; $j <= $#samohlasky; $j++)
+    {
+        $prevod->{chr($samohlasky+$j)} = $samohlasky[$j];
+    }
     # Uložit do tabulky samostatné souhlásky. Zatím se nezabývat inherentními
     # samohláskami. Jednak nevím, jak bychom odlišili případ, kdy je samohláska,
     # která může být inherentní, uvedena explicitně, jednak nevím, jak se odliší
