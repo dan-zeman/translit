@@ -112,6 +112,18 @@ sub inicializovat
         {
             my $tsouhlaska = chr($i).$tmedialy[$m];
             my $rsouhlaska = $alt{$i}[0].$rmedialy[$m];
+            ###!!! Tahle smyčka je asi zastaralá, protože níže stejně rozebírám kombinace souhlásek a samohlásek podrobněji.
+            # Přidat slabiky začínající touto souhláskou.
+            for(my $j = 0; $j <= $#samohlasky; $j++)
+            {
+                $prevod->{$tsouhlaska.chr($samohlasky+$j)} = $rsouhlaska.$samohlasky[$j];
+                # Barmština má 3 tóny: low, high a creaky: [à] [á] [a̰]
+                # https://en.wikipedia.org/wiki/Burmese_phonology#Tones
+                # Vysoký tón je často označen visargem za slabikou. Výjimkou jsou slabiky se samohláskami -ai a -au.
+                # Skřípavý (creaky) tón je často označen tečkou pod slabikou. Výjimkou jsou slabiky s inherentní samohláskou -a, dále se samohláskou -u a -i.
+                #local @tony = ('¹', '²', '³', '⁴');
+            }
+            ###!!! Konec asi zastaralé smyčky.
             # Virám a asat potlačují inherentní samohlásku.
             $prevod->{$tsouhlaska.$viram} = $rsouhlaska;
             $prevod->{$tsouhlaska.$asat} = $rsouhlaska;
@@ -136,16 +148,6 @@ sub inicializovat
             $prevod->{$tsouhlaska.chr(4146).$dotbelow} = $rsouhlaska.'a̰i';
             $prevod->{$tsouhlaska.chr(4145).chr(4140)} = $rsouhlaska.'au';
             $prevod->{$tsouhlaska.chr(4145).chr(4140).$dotbelow} = $rsouhlaska.'a̰u';
-            # Přidat slabiky začínající touto souhláskou.
-            for(my $j = 0; $j <= $#samohlasky; $j++)
-            {
-                $prevod->{$tsouhlaska.chr($samohlasky+$j)} = $rsouhlaska.$samohlasky[$j];
-                # Barmština má 3 tóny: low, high a creaky: [à] [á] [a̰]
-                # https://en.wikipedia.org/wiki/Burmese_phonology#Tones
-                # Vysoký tón je často označen visargem za slabikou. Výjimkou jsou slabiky se samohláskami -ai a -au.
-                # Skřípavý (creaky) tón je často označen tečkou pod slabikou. Výjimkou jsou slabiky s inherentní samohláskou -a, dále se samohláskou -u a -i.
-                #local @tony = ('¹', '²', '³', '⁴');
-            }
             # Nosová samohláska je v barmštině zachycena jako samohláska + nosová souhláska; až po ní může následovat visarg.
             for(my $n = 0; $n <= $#tnosovky; $n++)
             {
@@ -161,6 +163,15 @@ sub inicializovat
             }
         }
     }
+    ###!!! Ještě samostatné samohlásky (na začátku slabiky). Ale správně to asi bude složitější než takhle.
+    $prevod->{chr(4129)} = 'a';
+    $prevod->{chr(4131)} = 'i';
+    $prevod->{chr(4132)} = 'i';
+    $prevod->{chr(4133)} = 'u';
+    $prevod->{chr(4134)} = 'u';
+    $prevod->{chr(4135)} = 'e';
+    $prevod->{chr(4137)} = 'o';
+    $prevod->{chr(4138)} = 'au';
     # Číslice.
     for(my $i = 0; $i<=9; $i++)
     {
