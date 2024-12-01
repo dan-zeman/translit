@@ -81,11 +81,12 @@ sub inicializovat
     my $pocatek = 4096;
     my $souhlasky = 4096;
     my $samohlasky = 4139;
-    local $tony = 3656;
-    my $o_ang = chr(3629); # funguje jako ráz před samohláskou nebo jako součást některých samohlásek
     my $cislice = 4160;
     my @samohlasky = ('á', 'ā', 'i', 'ī', 'u', 'ū', 'e', 'ai', 'ī', 'o', 'e');
-    local @tony = ('¹', '²', '³', '⁴');
+    # Jak virám, tak asat potlačují inherentní samohlásku předcházející souhlásky.
+    # Zdá se ale, že v barmštině se častěji používá asat.
+    my $viram = chr(4153);
+    my $asat = chr(4154);
     # Uložit do tabulky samohlásky jako záložní řešení, pokud bychom je někde
     # nedokázali spojit se souhláskami.
     for(my $j = 0; $j <= $#samohlasky; $j++)
@@ -102,6 +103,8 @@ sub inicializovat
         my $tsouhlaska = chr($i);
         my $rsouhlaska = $alt{$i}[0];
         $prevod->{$tsouhlaska} = $rsouhlaska;
+        $prevod->{$tsouhlaska.$viram} = $rsouhlaska;
+        $prevod->{$tsouhlaska.$asat} = $rsouhlaska;
         # Přidat slabiky začínající touto souhláskou.
         for(my $j = 0; $j <= $#samohlasky; $j++)
         {
@@ -109,6 +112,7 @@ sub inicializovat
             # Barmština má 3 tóny: low, high a creaky: [à] [á] [a̰]
             # Vysoký tón je často označen visargem za slabikou. Výjimkou jsou slabiky se samohláskami -ai a -au.
             # Zvlněný (creaky) tón je často označen tečkou pod slabikou. Výjimkou jsou slabiky s inherentní samohláskou -a, dále se samohláskou -u a -i.
+            #local @tony = ('¹', '²', '³', '⁴');
         }
     }
     # Číslice.
