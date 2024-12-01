@@ -95,11 +95,11 @@ sub inicializovat
     {
         $prevod->{chr($samohlasky+$j)} = $samohlasky[$j];
     }
-    # Uložit do tabulky samostatné souhlásky. Zatím se nezabývat inherentními
-    # samohláskami. Jednak nevím, jak bychom odlišili případ, kdy je samohláska,
-    # která může být inherentní, uvedena explicitně, jednak nevím, jak se odliší
-    # souhláska na konci slabiky od souhlásky, která je na začátku slabiky a má
-    # inherentní samohlásku.
+    # Visarg by se měl normálně projevit na diakritice samohlásky, ale pokud mi
+    # někde zbyde, udělat z něj značku druhého (vysokého) tónu.
+    $prevod->{$visarg} = '²';
+    ###!!! Příklad: s+i+n+asat+visarg ... má to být vysoký tón toho "í"?
+    # Uložit do tabulky samostatné souhlásky.
     for(my $i = 4096; $i <= 4128; $i++)
     {
         my $tsouhlaska = chr($i);
