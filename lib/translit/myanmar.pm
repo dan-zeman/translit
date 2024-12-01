@@ -91,6 +91,8 @@ sub inicializovat
     # Zdá se ale, že v barmštině se častěji používá asat.
     my $viram = chr(4153);
     my $asat = chr(4154);
+    $prevod->{$viram} = '';
+    $prevod->{$asat} = '';
     # Uložit do tabulky samohlásky jako záložní řešení, pokud bychom je někde
     # nedokázali spojit se souhláskami.
     for(my $j = 0; $j <= $#samohlasky; $j++)
