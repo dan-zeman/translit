@@ -110,6 +110,7 @@ sub inicializovat
         {
             my $tsouhlaska = chr($i).$tmedialy[$m];
             my $rsouhlaska = $alt{$i}[0].$rmedialy[$m];
+            print($rsouhlaska) if($rsouhlaska eq 'ky');
             # Virám a asat potlačují inherentní samohlásku.
             $prevod->{$tsouhlaska.$viram} = $rsouhlaska;
             $prevod->{$tsouhlaska.$asat} = $rsouhlaska;
