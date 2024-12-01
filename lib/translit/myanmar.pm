@@ -85,6 +85,8 @@ sub inicializovat
     my @samohlasky = ('á', 'a', 'i', 'ī', 'u', 'ū', 'e', 'ai', 'ī', 'o', 'e');
     # Visarg (shay ga pauk) označuje vysoký tón, což současně obvykle znamená i dlouhou samohlásku.
     my $visarg = chr(4152);
+    # Dot below označuje skřípavý tón, což obvykle znamená krátkou a velmi nízko položenou samohlásku.
+    my $dotbelow = chr(4151);
     # Jak virám, tak asat potlačují inherentní samohlásku předcházející souhlásky.
     # Zdá se ale, že v barmštině se častěji používá asat.
     my $viram = chr(4153);
@@ -98,7 +100,7 @@ sub inicializovat
     # Visarg by se měl normálně projevit na diakritice samohlásky, ale pokud mi
     # někde zbyde, udělat z něj značku druhého (vysokého) tónu.
     $prevod->{$visarg} = '²';
-    ###!!! Příklad: s+i+n+asat+visarg ... má to být vysoký tón toho "í"?
+    $prevod->{$dotbelow} = '³';
     # Uložit do tabulky samostatné souhlásky.
     for(my $i = 4096; $i <= 4128; $i++)
     {
@@ -113,6 +115,21 @@ sub inicializovat
         $prevod->{$tsouhlaska.chr(4140).$visarg} = $rsouhlaska.'á';
         # Nosová samohláska je v barmštině zachycena jako samohláska + n; až po něm může následovat visarg.
         $prevod->{$tsouhlaska.chr(4140).chr(4116).$visarg} = $rsouhlaska.'án';
+        $prevod->{$tsouhlaska.chr(4141)} = $rsouhlaska.'i';
+        $prevod->{$tsouhlaska.chr(4141).chr(4116).$visarg} = $rsouhlaska.'ín';
+        $prevod->{$tsouhlaska.chr(4142)} = $rsouhlaska.'i';
+        $prevod->{$tsouhlaska.chr(4142).$visarg} = $rsouhlaska.'í';
+        $prevod->{$tsouhlaska.chr(4143)} = $rsouhlaska.'u';
+        $prevod->{$tsouhlaska.chr(4143).chr(4116).$visarg} = $rsouhlaska.'ún';
+        $prevod->{$tsouhlaska.chr(4144)} = $rsouhlaska.'u';
+        $prevod->{$tsouhlaska.chr(4144).$visarg} = $rsouhlaska.'ú';
+        $prevod->{$tsouhlaska.chr(4145)} = $rsouhlaska.'e';
+        $prevod->{$tsouhlaska.chr(4145).$visarg} = $rsouhlaska.'é';
+        $prevod->{$tsouhlaska.chr(4145).chr(4116).$visarg} = $rsouhlaska.'én';
+        $prevod->{$tsouhlaska.chr(4145).$dotbelow} = $rsouhlaska.'ḛ';
+        $prevod->{$tsouhlaska.chr(4145).chr(4116).$dotbelow} = $rsouhlaska.'ḛn';
+        $prevod->{$tsouhlaska.chr(4146)} = $rsouhlaska.'ái';
+        $prevod->{$tsouhlaska.chr(4146).$dotbelow} = $rsouhlaska.'a̰i';
         # Přidat slabiky začínající touto souhláskou.
         for(my $j = 0; $j <= $#samohlasky; $j++)
         {
