@@ -134,6 +134,8 @@ sub inicializovat
             $prevod->{$tsouhlaska.chr(4145).$dotbelow} = $rsouhlaska.'ḛ';
             $prevod->{$tsouhlaska.chr(4146)} = $rsouhlaska.'ái';
             $prevod->{$tsouhlaska.chr(4146).$dotbelow} = $rsouhlaska.'a̰i';
+            $prevod->{$tsouhlaska.chr(4145).chr(4140)} = $rsouhlaska.'au';
+            $prevod->{$tsouhlaska.chr(4145).chr(4140).$dotbelow} = $rsouhlaska.'a̰u';
             # Přidat slabiky začínající touto souhláskou.
             for(my $j = 0; $j <= $#samohlasky; $j++)
             {
@@ -154,6 +156,8 @@ sub inicializovat
                 $prevod->{$tsouhlaska.chr(4143).$tnosovky[$n].$asat.$visarg} = $rsouhlaska.'ú'.$rnosovky[$n];
                 $prevod->{$tsouhlaska.chr(4145).$tnosovky[$n].$asat.$visarg} = $rsouhlaska.'é'.$rnosovky[$n];
                 $prevod->{$tsouhlaska.chr(4145).$tnosovky[$n].$asat.$dotbelow} = $rsouhlaska.'ḛ'.$rnosovky[$n];
+                $prevod->{$tsouhlaska.chr(4145).chr(4140).$tnosovky[$n].$asat.$visarg} = $rsouhlaska.'áu'.$rnosovky[$n];
+                $prevod->{$tsouhlaska.chr(4145).chr(4140).$tnosovky[$n].$asat.$dotbelow} = $rsouhlaska.'a̰u'.$rnosovky[$n];
             }
         }
     }
