@@ -83,7 +83,7 @@ sub inicializovat
     my $samohlasky = 4139;
     my $cislice = 4160;
     my @samohlasky = ('á', 'a', 'i', 'ī', 'u', 'ū', 'e', 'ai', 'ī', 'o', 'e');
-    # Visarg označuje vysoký tón, což současně obvykle znamená i dlouhou samohlásku.
+    # Visarg (shay ga pauk) označuje vysoký tón, což současně obvykle znamená i dlouhou samohlásku.
     my $visarg = chr(4152);
     # Jak virám, tak asat potlačují inherentní samohlásku předcházející souhlásky.
     # Zdá se ale, že v barmštině se častěji používá asat.
@@ -111,6 +111,8 @@ sub inicializovat
         $prevod->{$tsouhlaska} = $rsouhlaska.'a̰';
         $prevod->{$tsouhlaska.chr(4140)} = $rsouhlaska.'a';
         $prevod->{$tsouhlaska.chr(4140).$visarg} = $rsouhlaska.'á';
+        # Nosová samohláska je v barmštině zachycena jako samohláska + n; až po něm může následovat visarg.
+        $prevod->{$tsouhlaska.chr(4140).chr(4116).$visarg} = $rsouhlaska.'án';
         # Přidat slabiky začínající touto souhláskou.
         for(my $j = 0; $j <= $#samohlasky; $j++)
         {
