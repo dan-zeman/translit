@@ -102,15 +102,14 @@ sub inicializovat
     $prevod->{$visarg} = '²';
     $prevod->{$dotbelow} = '³';
     # Uložit do tabulky samostatné souhlásky.
-    my $tmedialy = ['', chr(4155), chr(4156), chr(4157), chr(4158)];
-    my $rmedialy = ['', 'y', 'r', 'w', 'h'];
+    my @tmedialy = ('', chr(4155), chr(4156), chr(4157), chr(4158));
+    my @rmedialy = ('', 'y', 'r', 'w', 'h');
     for(my $i = 4096; $i <= 4128; $i++)
     {
         for(my $m = 0; $m <= 4; $m++)
         {
             my $tsouhlaska = chr($i).$tmedialy[$m];
             my $rsouhlaska = $alt{$i}[0].$rmedialy[$m];
-            print($rsouhlaska) if($rsouhlaska eq 'ky');
             # Virám a asat potlačují inherentní samohlásku.
             $prevod->{$tsouhlaska.$viram} = $rsouhlaska;
             $prevod->{$tsouhlaska.$asat} = $rsouhlaska;
