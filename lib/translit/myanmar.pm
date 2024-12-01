@@ -97,7 +97,7 @@ sub inicializovat
     # která může být inherentní, uvedena explicitně, jednak nevím, jak se odliší
     # souhláska na konci slabiky od souhlásky, která je na začátku slabiky a má
     # inherentní samohlásku.
-    for(my $i = 3585; $i <= 3630; $i++)
+    for(my $i = 4096; $i <= 4128; $i++)
     {
         my $tsouhlaska = chr($i);
         my $rsouhlaska = $alt{$i}[0];
