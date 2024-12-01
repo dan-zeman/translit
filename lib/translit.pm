@@ -12,11 +12,12 @@ use translit::syriac;
 use translit::arab;
 use translit::urdu;
 use translit::uyghur;
-use translit::brahmi;
-use translit::tibetan;
-use translit::mkhedruli;
 use translit::hebrew;
 use translit::ethiopic;
+use translit::mkhedruli;
+use translit::brahmi;
+use translit::tibetan;
+use translit::myanmar;
 use translit::thai;
 use translit::khmer;
 use translit::hangeul;
@@ -58,6 +59,11 @@ sub inicializovat_vse
         translit::urdu::inicializovat($prevod);
         translit::arab::inicializovat($prevod);
     }
+    # 0x10A0: Mkhedruli (Georgian)
+    translit::mkhedruli::inicializovat($prevod);
+    # 0x1200: Ethiopic (Amharic and other languages)
+    translit::ethiopic::inicializovat($prevod);
+    translit::hebrew::inicializovat($prevod);
     my $brahmi_lat = $scientific;
     if($brahmi_lat == $scientific && $language =~ m/^(ta|ml|kn|te)$/i)
     {
@@ -83,12 +89,8 @@ sub inicializovat_vse
     translit::brahmi::inicializovat($prevod, 3328, $brahmi_lat);
     # 0xD80: Sinhala
     translit::brahmi::inicializovat($prevod, 3456, $brahmi_lat);
-    # 0x10A0: Mkhedruli (Georgian)
-    translit::mkhedruli::inicializovat($prevod);
-    # 0x1200: Ethiopic (Amharic and other languages)
-    translit::ethiopic::inicializovat($prevod);
     translit::tibetan::inicializovat($prevod);
-    translit::hebrew::inicializovat($prevod);
+    translit::myanmar::inicializovat($prevod);
     # 0xE00: Thai
     translit::thai::inicializovat($prevod);
     # 0x1780: Khmer
