@@ -114,20 +114,20 @@ sub inicializovat
         $prevod->{$tsouhlaska.chr(4140)} = $rsouhlaska.'a';
         $prevod->{$tsouhlaska.chr(4140).$visarg} = $rsouhlaska.'á';
         # Nosová samohláska je v barmštině zachycena jako samohláska + n; až po něm může následovat visarg.
-        $prevod->{$tsouhlaska.chr(4140).chr(4116).$visarg} = $rsouhlaska.'án';
+        $prevod->{$tsouhlaska.chr(4140).chr(4116).$asat.$visarg} = $rsouhlaska.'án';
         $prevod->{$tsouhlaska.chr(4141)} = $rsouhlaska.'i';
-        $prevod->{$tsouhlaska.chr(4141).chr(4116).$visarg} = $rsouhlaska.'ín';
+        $prevod->{$tsouhlaska.chr(4141).chr(4116).$asat.$visarg} = $rsouhlaska.'ín';
         $prevod->{$tsouhlaska.chr(4142)} = $rsouhlaska.'i';
         $prevod->{$tsouhlaska.chr(4142).$visarg} = $rsouhlaska.'í';
         $prevod->{$tsouhlaska.chr(4143)} = $rsouhlaska.'u';
-        $prevod->{$tsouhlaska.chr(4143).chr(4116).$visarg} = $rsouhlaska.'ún';
+        $prevod->{$tsouhlaska.chr(4143).chr(4116).$asat.$visarg} = $rsouhlaska.'ún';
         $prevod->{$tsouhlaska.chr(4144)} = $rsouhlaska.'u';
         $prevod->{$tsouhlaska.chr(4144).$visarg} = $rsouhlaska.'ú';
         $prevod->{$tsouhlaska.chr(4145)} = $rsouhlaska.'e';
         $prevod->{$tsouhlaska.chr(4145).$visarg} = $rsouhlaska.'é';
-        $prevod->{$tsouhlaska.chr(4145).chr(4116).$visarg} = $rsouhlaska.'én';
+        $prevod->{$tsouhlaska.chr(4145).chr(4116).$asat.$visarg} = $rsouhlaska.'én';
         $prevod->{$tsouhlaska.chr(4145).$dotbelow} = $rsouhlaska.'ḛ';
-        $prevod->{$tsouhlaska.chr(4145).chr(4116).$dotbelow} = $rsouhlaska.'ḛn';
+        $prevod->{$tsouhlaska.chr(4145).chr(4116).$asat.$dotbelow} = $rsouhlaska.'ḛn';
         $prevod->{$tsouhlaska.chr(4146)} = $rsouhlaska.'ái';
         $prevod->{$tsouhlaska.chr(4146).$dotbelow} = $rsouhlaska.'a̰i';
         # Přidat slabiky začínající touto souhláskou.
