@@ -82,7 +82,9 @@ sub inicializovat
     my $souhlasky = 4096;
     my $samohlasky = 4139;
     my $cislice = 4160;
-    my @samohlasky = ('á', 'ā', 'i', 'ī', 'u', 'ū', 'e', 'ai', 'ī', 'o', 'e');
+    my @samohlasky = ('á', 'a', 'i', 'ī', 'u', 'ū', 'e', 'ai', 'ī', 'o', 'e');
+    # Visarg označuje vysoký tón, což současně obvykle znamená i dlouhou samohlásku.
+    my $visarg = chr(4152);
     # Jak virám, tak asat potlačují inherentní samohlásku předcházející souhlásky.
     # Zdá se ale, že v barmštině se častěji používá asat.
     my $viram = chr(4153);
@@ -102,16 +104,21 @@ sub inicializovat
     {
         my $tsouhlaska = chr($i);
         my $rsouhlaska = $alt{$i}[0];
-        $prevod->{$tsouhlaska} = $rsouhlaska;
+        # Virám a asat potlačují inherentní samohlásku.
         $prevod->{$tsouhlaska.$viram} = $rsouhlaska;
         $prevod->{$tsouhlaska.$asat} = $rsouhlaska;
+        # Inherentní samohláska je "a" ve skřípavém tónu.
+        $prevod->{$tsouhlaska} = $rsouhlaska.'a̰';
+        $prevod->{$tsouhlaska.chr(4140)} = $rsouhlaska.'a';
+        $prevod->{$tsouhlaska.chr(4140).$visarg} = $rsouhlaska.'á';
         # Přidat slabiky začínající touto souhláskou.
         for(my $j = 0; $j <= $#samohlasky; $j++)
         {
             $prevod->{$tsouhlaska.chr($samohlasky+$j)} = $rsouhlaska.$samohlasky[$j];
             # Barmština má 3 tóny: low, high a creaky: [à] [á] [a̰]
+            # https://en.wikipedia.org/wiki/Burmese_phonology#Tones
             # Vysoký tón je často označen visargem za slabikou. Výjimkou jsou slabiky se samohláskami -ai a -au.
-            # Zvlněný (creaky) tón je často označen tečkou pod slabikou. Výjimkou jsou slabiky s inherentní samohláskou -a, dále se samohláskou -u a -i.
+            # Skřípavý (creaky) tón je často označen tečkou pod slabikou. Výjimkou jsou slabiky s inherentní samohláskou -a, dále se samohláskou -u a -i.
             #local @tony = ('¹', '²', '³', '⁴');
         }
     }
