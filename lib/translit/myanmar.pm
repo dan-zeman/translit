@@ -113,8 +113,12 @@ sub inicializovat
         $prevod->{$tsouhlaska} = $rsouhlaska.'a̰';
         $prevod->{$tsouhlaska.chr(4140)} = $rsouhlaska.'a';
         $prevod->{$tsouhlaska.chr(4140).$visarg} = $rsouhlaska.'á';
+        # 4139 "tall aa" je alternativa k 4140 "aa", která se používá s některými souhláskami, např. "g".
+        $prevod->{$tsouhlaska.chr(4139)} = $rsouhlaska.'a';
+        $prevod->{$tsouhlaska.chr(4139).$visarg} = $rsouhlaska.'á';
         # Nosová samohláska je v barmštině zachycena jako samohláska + n; až po něm může následovat visarg.
         $prevod->{$tsouhlaska.chr(4140).chr(4116).$asat.$visarg} = $rsouhlaska.'án';
+        $prevod->{$tsouhlaska.chr(4139).chr(4116).$asat.$visarg} = $rsouhlaska.'án';
         $prevod->{$tsouhlaska.chr(4141)} = $rsouhlaska.'i';
         $prevod->{$tsouhlaska.chr(4141).chr(4116).$asat.$visarg} = $rsouhlaska.'ín';
         $prevod->{$tsouhlaska.chr(4142)} = $rsouhlaska.'i';
