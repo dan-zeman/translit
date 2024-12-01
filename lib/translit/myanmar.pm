@@ -143,12 +143,17 @@ sub inicializovat
             $prevod->{$tsouhlaska.chr(4143)} = $rsouhlaska.'u';
             $prevod->{$tsouhlaska.chr(4144)} = $rsouhlaska.'u';
             $prevod->{$tsouhlaska.chr(4144).$visarg} = $rsouhlaska.'ú';
+            $prevod->{$tsouhlaska.chr(4141).chr(4143)} = $rsouhlaska.'o';
+            $prevod->{$tsouhlaska.chr(4141).chr(4143).$visarg} = $rsouhlaska.'ó';
+            $prevod->{$tsouhlaska.chr(4141).chr(4143).$dotbelow} = $rsouhlaska.'o̰';
             $prevod->{$tsouhlaska.chr(4145)} = $rsouhlaska.'e';
             $prevod->{$tsouhlaska.chr(4145).$visarg} = $rsouhlaska.'é';
             $prevod->{$tsouhlaska.chr(4145).$dotbelow} = $rsouhlaska.'ḛ';
+            $prevod->{$tsouhlaska.chr(4122).$asat} = $rsouhlaska.'ai';
             $prevod->{$tsouhlaska.chr(4146)} = $rsouhlaska.'ái';
             $prevod->{$tsouhlaska.chr(4146).$dotbelow} = $rsouhlaska.'a̰i';
-            $prevod->{$tsouhlaska.chr(4145).chr(4140)} = $rsouhlaska.'au';
+            $prevod->{$tsouhlaska.chr(4145).chr(4140)} = $rsouhlaska.'áu';
+            $prevod->{$tsouhlaska.chr(4145).chr(4140).$asat} = $rsouhlaska.'au';
             $prevod->{$tsouhlaska.chr(4145).chr(4140).$dotbelow} = $rsouhlaska.'a̰u';
             # Nosová samohláska je v barmštině zachycena jako samohláska + nosová souhláska; až po ní může následovat visarg.
             for(my $n = 0; $n <= $#tnosovky; $n++)
