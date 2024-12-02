@@ -115,7 +115,7 @@ sub inicializovat
         }
         else
         {
-            for(my $m = 0; $m <= 4; $m++)
+            for(my $m = 0; $m <= $#tmedialy; $m++)
             {
                 my $tsouhlaska = chr($i).$tmedialy[$m];
                 my $rsouhlaska = $alt{$i}[0].$rmedialy[$m];
