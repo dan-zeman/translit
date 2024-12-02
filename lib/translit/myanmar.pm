@@ -169,6 +169,7 @@ sub kombinovat_se_samohlaskami
     $prevod->{$tsouhlaska} = $rsouhlaska.'a̰';
     $prevod->{$tsouhlaska.chr(4140)} = $rsouhlaska.'a';
     $prevod->{$tsouhlaska.chr(4140).$visarg} = $rsouhlaska.'á';
+    $prevod->{$tsouhlaska.chr(4140).$dotbelow} = $rsouhlaska.'a̰';
     # 4139 "tall aa" je alternativa k 4140 "aa", která se používá s některými souhláskami, např. "g".
     $prevod->{$tsouhlaska.chr(4139)} = $rsouhlaska.'a';
     $prevod->{$tsouhlaska.chr(4139).$visarg} = $rsouhlaska.'á';
@@ -198,6 +199,8 @@ sub kombinovat_se_samohlaskami
     for(my $n = 0; $n <= $#tnosovky; $n++)
     {
         $prevod->{$tsouhlaska.$tnosovky[$n].$asat.$visarg} = $rsouhlaska.'á'.$rnosovky[$n];
+        $prevod->{$tsouhlaska.$tnosovky[$n].$asat.$dotbelow} = $rsouhlaska.'a̰'.$rnosovky[$n];
+        $prevod->{$tsouhlaska.$tnosovky[$n].$dotbelow.$asat} = $rsouhlaska.'a̰'.$rnosovky[$n];
         $prevod->{$tsouhlaska.chr(4140).$tnosovky[$n].$asat.$visarg} = $rsouhlaska.'á'.$rnosovky[$n];
         $prevod->{$tsouhlaska.chr(4139).$tnosovky[$n].$asat.$visarg} = $rsouhlaska.'á'.$rnosovky[$n];
         $prevod->{$tsouhlaska.chr(4139).$tnosovky[$n].$asat.$dotbelow} = $rsouhlaska.'a̰'.$rnosovky[$n];
