@@ -82,25 +82,25 @@ sub inicializovat
     my $souhlasky = 4096;
     my $cislice = 4160;
     # Visarg (shay ga pauk) označuje vysoký tón, což současně obvykle znamená i dlouhou samohlásku.
-    my $visarg = chr(4152);
+    local $visarg = chr(4152);
     # Dot below označuje skřípavý tón, což obvykle znamená krátkou a velmi nízko položenou samohlásku.
-    my $dotbelow = chr(4151);
-    # Jak virám, tak asat potlačují inherentní samohlásku předcházející souhlásky.
-    # Zdá se ale, že v barmštině se častěji používá asat.
-    my $viram = chr(4153);
-    my $asat = chr(4154);
-    $prevod->{$viram} = '';
-    $prevod->{$asat} = '';
-    # Anusvár signalizuje nosovost předcházející samohlásky. Je to alternativa
-    # k připojení nosové souhlásky, které slouží stejnému účelu. Přepíšeme ho
-    # jako COMBINING TILDE.
-    my $anusvar = chr(4150);
-    $prevod->{$anusvar} = chr(771);
+    local $dotbelow = chr(4151);
     # Visarg by se měl normálně projevit na diakritice samohlásky, ale pokud mi
     # někde zbyde, udělat z něj značku druhého (vysokého) tónu. Podobně tečka
     # pod samohláskou označuje třetí (skřípavý) tón.
     $prevod->{$visarg} = '²';
     $prevod->{$dotbelow} = '³';
+    # Jak virám, tak asat potlačují inherentní samohlásku předcházející souhlásky.
+    # Zdá se ale, že v barmštině se častěji používá asat.
+    local $viram = chr(4153);
+    local $asat = chr(4154);
+    $prevod->{$viram} = '';
+    $prevod->{$asat} = '';
+    # Anusvár signalizuje nosovost předcházející samohlásky. Je to alternativa
+    # k připojení nosové souhlásky, které slouží stejnému účelu. Přepíšeme ho
+    # jako COMBINING TILDE.
+    local $anusvar = chr(4150);
+    $prevod->{$anusvar} = chr(771);
     my @tmedialy = ('', chr(4155), chr(4156), chr(4157), chr(4158));
     my @rmedialy = ('', 'y', 'r', 'w', 'h');
     for(my $i = 4095; $i <= 4128; $i++)
