@@ -167,6 +167,7 @@ sub kombinovat_se_samohlaskami
     #local @tony = ('¹', '²', '³', '⁴');
     # Inherentní samohláska je "a" ve skřípavém tónu.
     $prevod->{$tsouhlaska} = $rsouhlaska.'a̰';
+    $prevod->{$tsouhlaska.$dotbelow.$asat} = $rsouhlaska.'a̰';
     $prevod->{$tsouhlaska.chr(4140)} = $rsouhlaska.'a';
     $prevod->{$tsouhlaska.chr(4140).$visarg} = $rsouhlaska.'á';
     $prevod->{$tsouhlaska.chr(4140).$dotbelow} = $rsouhlaska.'a̰';
@@ -178,6 +179,7 @@ sub kombinovat_se_samohlaskami
     $prevod->{$tsouhlaska.chr(4142)} = $rsouhlaska.'i';
     $prevod->{$tsouhlaska.chr(4142).$visarg} = $rsouhlaska.'í';
     $prevod->{$tsouhlaska.chr(4143)} = $rsouhlaska.'u';
+    $prevod->{$tsouhlaska.chr(4143).$anusvar.$visarg} = $rsouhlaska.'ú'.chr(771);
     $prevod->{$tsouhlaska.chr(4144)} = $rsouhlaska.'u';
     $prevod->{$tsouhlaska.chr(4144).$visarg} = $rsouhlaska.'ú';
     $prevod->{$tsouhlaska.chr(4141).chr(4143)} = $rsouhlaska.'o';
