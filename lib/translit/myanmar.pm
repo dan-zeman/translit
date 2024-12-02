@@ -104,7 +104,7 @@ sub inicializovat
     $prevod->{$anusvar} = chr(771);
     my @tmedialy = ('', chr(4155), chr(4156), chr(4157), chr(4158), chr(4155).chr(4157));
     my @rmedialy = ('', 'y', 'r', 'w', 'h', 'yw');
-    for(my $i = 4095; $i <= 4128; $i++)
+    for(my $i = 4095; $i <= 4159; $i++)
     {
         if($i == 4095)
         {
@@ -114,7 +114,7 @@ sub inicializovat
             my $rsouhlaska = '';
             kombinovat_se_samohlaskami($prevod, $tsouhlaska, $rsouhlaska);
         }
-        else
+        elsif(exists($alt{$i}))
         {
             for(my $m = 0; $m <= $#tmedialy; $m++)
             {
