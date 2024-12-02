@@ -58,7 +58,8 @@ use utf8;
     4125 => ['w',  'w'],
     4126 => ['s',  's'],   # pronounced [θ] or [ɾ̪]
     4127 => ['h',  'h'],
-    4128 => ['ḷ',  'll']   # pronounced [l]
+    4128 => ['ḷ',  'll'],  # pronounced [l]
+    4159 => ['š',  'sh']
 );
 
 
@@ -127,13 +128,19 @@ sub inicializovat
         }
     }
     ###!!! Ještě samostatné samohlásky (na začátku slabiky). Ale správně to asi bude složitější než takhle.
-    $prevod->{chr(4129)} = 'a';
-    $prevod->{chr(4131)} = 'i';
-    $prevod->{chr(4132)} = 'i';
-    $prevod->{chr(4133)} = 'u';
+    $prevod->{chr(4129)} = 'a̰';
+    $prevod->{chr(4129).chr(4139)} = 'a';
+    $prevod->{chr(4129).chr(4140)} = 'a';
+    $prevod->{chr(4129).chr(4139).$visarg} = 'á';
+    $prevod->{chr(4129).chr(4140).$visarg} = 'á';
+    $prevod->{chr(4131)} = 'ḭ';
+    $prevod->{chr(4132)} = 'í';
+    $prevod->{chr(4133)} = 'ṵ';
     $prevod->{chr(4134)} = 'u';
-    $prevod->{chr(4135)} = 'e';
-    $prevod->{chr(4137)} = 'o';
+    $prevod->{chr(4134).$visarg} = 'ú';
+    $prevod->{chr(4135)} = 'é'; # MLC transcribes it "ei:"
+    $prevod->{chr(4135).chr(4157)} = 'éw';
+    $prevod->{chr(4137)} = 'áu';
     $prevod->{chr(4138)} = 'au';
     # Číslice.
     for(my $i = 0; $i<=9; $i++)
@@ -175,10 +182,10 @@ sub kombinovat_se_samohlaskami
     $prevod->{$tsouhlaska.chr(4139)} = $rsouhlaska.'a';
     $prevod->{$tsouhlaska.chr(4139).$visarg} = $rsouhlaska.'á';
     $prevod->{$tsouhlaska.chr(4139).$dotbelow} = $rsouhlaska.'a̰';
-    $prevod->{$tsouhlaska.chr(4141)} = $rsouhlaska.'i';
+    $prevod->{$tsouhlaska.chr(4141)} = $rsouhlaska.'ḭ';
     $prevod->{$tsouhlaska.chr(4142)} = $rsouhlaska.'i';
     $prevod->{$tsouhlaska.chr(4142).$visarg} = $rsouhlaska.'í';
-    $prevod->{$tsouhlaska.chr(4143)} = $rsouhlaska.'u';
+    $prevod->{$tsouhlaska.chr(4143)} = $rsouhlaska.'ṵ';
     $prevod->{$tsouhlaska.chr(4143).$anusvar.$visarg} = $rsouhlaska.'ú'.chr(771);
     $prevod->{$tsouhlaska.chr(4144)} = $rsouhlaska.'u';
     $prevod->{$tsouhlaska.chr(4144).$visarg} = $rsouhlaska.'ú';
