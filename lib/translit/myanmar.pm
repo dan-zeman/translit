@@ -101,8 +101,8 @@ sub inicializovat
     # jako COMBINING TILDE.
     local $anusvar = chr(4150);
     $prevod->{$anusvar} = chr(771);
-    my @tmedialy = ('', chr(4155), chr(4156), chr(4157), chr(4158));
-    my @rmedialy = ('', 'y', 'r', 'w', 'h');
+    my @tmedialy = ('', chr(4155), chr(4156), chr(4157), chr(4158), chr(4155).chr(4157));
+    my @rmedialy = ('', 'y', 'r', 'w', 'h', 'yw');
     for(my $i = 4095; $i <= 4128; $i++)
     {
         if($i == 4095)
