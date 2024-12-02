@@ -36,7 +36,7 @@ use utf8;
     4103 => ['j',  'j'],   # pronounced [z], not [dž]
     4104 => ['jʰ', 'jh'],  # pronounced [z]
     4105 => ['ñ',  'ny'],  # ň, ɲ
-    4106 => ['ññ', 'nny'], # ňň?
+    4106 => ['ṇ̃',  'nny'], # ňň?
     4107 => ['ṭ',  'tt'],
     4108 => ['ṭʰ', 'tth'],
     4109 => ['ḍ',  'dd'],
@@ -193,8 +193,8 @@ sub kombinovat_se_samohlaskami
     $prevod->{$tsouhlaska.chr(4145).chr(4140).$dotbelow} = $rsouhlaska.'a̰u';
     # Nosová samohláska je v barmštině zachycena jako samohláska + nosová souhláska; až po ní může následovat visarg.
     # (Nosová samohláska může být také zachycena pomocí anusváru, ale ten zatím řešíme jinak.)
-    my @tnosovky = (chr(4100), chr(4105), chr(4111), chr(4116), chr(4121));
-    my @rnosovky = ('ṅ', 'ñ', 'ṇ', 'n', 'm');
+    my @tnosovky = (chr(4100), chr(4105), chr(4106), chr(4111), chr(4116), chr(4121));
+    my @rnosovky = ('ṅ', 'ñ', 'ṇ̃', 'ṇ', 'n', 'm');
     for(my $n = 0; $n <= $#tnosovky; $n++)
     {
         $prevod->{$tsouhlaska.$tnosovky[$n].$asat.$visarg} = $rsouhlaska.'á'.$rnosovky[$n];
