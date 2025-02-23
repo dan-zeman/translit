@@ -29,6 +29,9 @@ writing system may slightly differ. For example, the Cyrillic letter _г_ will
 be transliterated as _g_ when the source language is Russian, and _h_ when it is
 Ukrainian.
 
+<!-- Webové rozhraní je vypnuté, protože jinak by ho vytěžovali roboti.
+
 For direct transliteration of web pages (and also for demo of the currently
 supported languages), see
 [http://quest.ms.mff.cuni.cz/cgi-bin/zeman/translit/translit.pl](http://quest.ms.mff.cuni.cz/cgi-bin/zeman/translit/translit.pl).
+-->
