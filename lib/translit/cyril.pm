@@ -192,6 +192,9 @@ sub inicializovat
         1257 => 'ö',
         1198 => 'Ü',
         1199 => 'ü',
+        # uralské jazyky
+        1223 => 'Ŋ', # 04C7: CYRILLIC CAPITAL LETTER EN WITH HOOK (used in Nenets)
+        1224 => 'ŋ', # 04C8: CYRILLIC SMALL LETTER EN WITH HOOK (used in Nenets)
     );
     # Odchylky pro některé zdrojové jazyky.
     if($jazyk eq 'be') # běloruština
@@ -236,6 +239,15 @@ sub inicializovat
         # Místo "šč" se ve staroslověnštině čte "št".
         $cyril{1065} = 'ŠT';
         $cyril{1097} = 'št';
+    }
+    elsif($jazyk eq 'yrk') # něnečtina
+    {
+        # The modifier letters should not be replaced by default but the Nenets
+        # scheme assumes they represent the glottal stop.
+        $cyril{700} = 'ʔ1'; # 02BC: MODIFIER LETTER APOSTROPHE (used in Nenets)
+        $cyril{750} = 'ʔ2'; # 02EE: MODIFIER LETTER DOUBLE APOSTROPHE (used in Nenets)
+        $cyril{1061} = 'X'; # CH
+        $cyril{1093} = 'x'; # ch
     }
     foreach my $kod (keys(%cyril))
     {
