@@ -243,11 +243,28 @@ sub inicializovat
     elsif($jazyk eq 'yrk') # něnečtina
     {
         # The modifier letters should not be replaced by default but the Nenets
-        # scheme assumes they represent the glottal stop.
-        $cyril{700} = 'ʔ1'; # 02BC: MODIFIER LETTER APOSTROPHE (used in Nenets)
-        $cyril{750} = 'ʔ2'; # 02EE: MODIFIER LETTER DOUBLE APOSTROPHE (used in Nenets)
+        # scheme assumes they represent the glottal stop. Note that people
+        # sometimes mis-type them as 8217 (U+2019) RIGHT SINGLE QUOTATION MARK
+        # and 8221 (U+201D) RIGHT DOUBLE QUOTATION MARK, respectively. We do
+        # not transcribe those characters here because they could be real punctuation.
+        $cyril{700} = 'ʔ¹'; # 02BC: MODIFIER LETTER APOSTROPHE (used in Nenets)
+        $cyril{750} = 'ʔ²'; # 02EE: MODIFIER LETTER DOUBLE APOSTROPHE (used in Nenets)
         $cyril{1061} = 'X'; # CH
         $cyril{1093} = 'x'; # ch
+        # Soft sign
+        $cyril{1068} = 'J²';
+        $cyril{1100} = 'j²';
+        # Hard sign
+        $cyril{1066} = '"';
+        $cyril{1098} = '"';
+        # The following seem to be alternatives for the standard "EN WITH HOOK".
+        $cyril{1187} = 'ŋ'; # ң 04A3 CYRILLIC SMALL LETTER EN WITH DESCENDER
+        $cyril{1226} = 'ŋ'; # ӊ 04CA CYRILLIC SMALL LETTER EN WITH TAIL
+        # Hard e.
+        $cyril{1069} = 'Æ'; # 'È',
+        $cyril{1101} = 'æ'; # 044D CYRILLIC SMALL LETTER E (in Russian we transcribe it as 'è')
+        # 1025 => 'Ë', should it be 'JO' instead?
+        # 1105 => 'ë',
     }
     foreach my $kod (keys(%cyril))
     {
