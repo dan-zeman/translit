@@ -247,6 +247,9 @@ sub inicializovat
         # sometimes mis-type them as 8217 (U+2019) RIGHT SINGLE QUOTATION MARK
         # and 8221 (U+201D) RIGHT DOUBLE QUOTATION MARK, respectively. We do
         # not transcribe those characters here because they could be real punctuation.
+        # The letter ⟨ˮ⟩ marks a "plain" glottal stop, while ⟨ʼ⟩ marks a glottal stop derived from a word-final n.
+        # Ruské názvy: "zvonkoj taser", "gluhoj taser".
+        # Jiné transkripce: ʼ = h (nasalizable glottal stop), ˮ = q (non-nasalizable glottal stop). But both are pronounced 'ʔ'.
         $cyril{700} = 'ʔ¹'; # 02BC: MODIFIER LETTER APOSTROPHE (used in Nenets)
         $cyril{750} = 'ʔ²'; # 02EE: MODIFIER LETTER DOUBLE APOSTROPHE (used in Nenets)
         $cyril{1061} = 'X'; # CH
@@ -265,10 +268,64 @@ sub inicializovat
         $cyril{1101} = 'æ'; # 044D CYRILLIC SMALL LETTER E (in Russian we transcribe it as 'è')
         # 1025 => 'Ë', should it be 'JO' instead?
         # 1105 => 'ë',
+        # If we want transcription instead of transliteration, we need to account
+        # for different ways of marking palatalized consonants. But we will do
+        # it below, directly in the $prevod hash.
     }
     foreach my $kod (keys(%cyril))
     {
         $prevod->{chr($kod)} = $cyril{$kod};
+    }
+    if($jazyk eq 'yrk') # Nenets: Additional rules to move from transliteration to transcription.
+    {
+        # We already have simple rewrite rules that will be used when the consonant is not palatalized.
+        # Here we will add palatalized transcriptions when the consonant is followed by a palatalizing vowel.
+        my %palatalized =
+        (
+            'б' => 'b́',
+            'д' => 'ď',
+            'з' => 'ź',
+            'л' => 'ľ',
+            'м' => 'ḿ',
+            'н' => 'ń',
+            'п' => 'ṕ',
+            'р' => 'ŕ',
+            'с' => 'ś',
+            'т' => 'ť',
+            'ц' => 'ć'
+        );
+        my @lckeys = keys(%palatalized);
+        foreach my $x (@lckeys)
+        {
+            unless(uc($x) eq $x)
+            {
+                $palatalized{uc($x)} = uc($palatalized{$x});
+            }
+        }
+        my %palatalizing =
+        (
+            'ь' => '',
+            'е' => 'e',
+            'ё' => 'o',
+            'и' => 'i',
+            'ю' => 'u',
+            'я' => 'a'
+        );
+        @lckeys = keys(%palatalizing);
+        foreach my $x (@lckeys)
+        {
+            unless(uc($x) eq $x)
+            {
+                $palatalizing{uc($x)} = uc($palatalizing{$x});
+            }
+        }
+        foreach my $consonant (keys(%palatalized))
+        {
+            foreach my $vowel (keys(%palatalizing))
+            {
+                $prevod->{$consonant.$vowel} = $palatalized{$consonant}.$palatalizing{$vowel};
+            }
+        }
     }
     return $prevod;
 }
