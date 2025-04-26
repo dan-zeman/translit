@@ -250,8 +250,8 @@ sub inicializovat
         # The letter ⟨ˮ⟩ marks a "plain" glottal stop, while ⟨ʼ⟩ marks a glottal stop derived from a word-final n.
         # Ruské názvy: "zvonkoj taser", "gluhoj taser".
         # Jiné transkripce: ʼ = h (nasalizable glottal stop), ˮ = q (non-nasalizable glottal stop). But both are pronounced 'ʔ'.
-        $cyril{700} = 'ʔ¹'; # 02BC: MODIFIER LETTER APOSTROPHE (used in Nenets)
-        $cyril{750} = 'ʔ²'; # 02EE: MODIFIER LETTER DOUBLE APOSTROPHE (used in Nenets)
+        $cyril{700} = 'ʔ'; #'ʔ¹'; # 02BC: MODIFIER LETTER APOSTROPHE (used in Nenets)
+        $cyril{750} = 'ʡ'; #'ʔ²'; # 02EE: MODIFIER LETTER DOUBLE APOSTROPHE (used in Nenets)
         $cyril{1061} = 'X'; # CH
         $cyril{1093} = 'x'; # ch
         # Soft sign
