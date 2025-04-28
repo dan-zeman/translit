@@ -252,6 +252,8 @@ sub inicializovat
         # Jiné transkripce: ʼ = h (nasalizable glottal stop), ˮ = q (non-nasalizable glottal stop). But both are pronounced 'ʔ'.
         $cyril{700} = 'ʔ'; #'ʔ¹'; # 02BC: MODIFIER LETTER APOSTROPHE (used in Nenets)
         $cyril{750} = 'ʡ'; #'ʔ²'; # 02EE: MODIFIER LETTER DOUBLE APOSTROPHE (used in Nenets)
+        $cyril{1042} = 'W'; # V
+        $cyril{1074} = 'w'; # v
         $cyril{1061} = 'X'; # CH
         $cyril{1093} = 'x'; # ch
         # Soft sign
