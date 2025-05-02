@@ -256,6 +256,8 @@ sub inicializovat
         $cyril{1074} = 'w'; # v
         $cyril{1061} = 'X'; # CH
         $cyril{1093} = 'x'; # ch
+        $cyril{1067} = 'I'; # Y
+        $cyril{1099} = 'i'; # y
         # Soft sign
         $cyril{1068} = 'J²';
         $cyril{1100} = 'j²';
@@ -268,8 +270,6 @@ sub inicializovat
         # Hard e.
         $cyril{1069} = 'Æ'; # 'È',
         $cyril{1101} = 'æ'; # 044D CYRILLIC SMALL LETTER E (in Russian we transcribe it as 'è')
-        # 1025 => 'Ë', should it be 'JO' instead?
-        # 1105 => 'ë',
         # If we want transcription instead of transliteration, we need to account
         # for different ways of marking palatalized consonants. But we will do
         # it below, directly in the $prevod hash.
