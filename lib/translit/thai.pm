@@ -5,6 +5,7 @@
 
 package translit::thai;
 use utf8;
+use Unicode::Normalize;
 
 
 
@@ -133,8 +134,9 @@ sub inicializovat
     my $sara_ai2 = chr(3652); # maimalai
     my $maitaikhu = chr(3655); # mai taikhu = stick that climbs and squats (hůl, která šplhá a dřepuje); vypadá jako malá thajská osmička; zkracuje samohlásky
     my $cislice = 3664;
-    my @samohlasky = ('a', 'â', 'á', 'ã', 'i', 'í', 'ü', 'ű', 'u', 'ú'); # ã = 'am' = sara am = chr(3635)
+    my @samohlasky = ('a', 'â', 'aː', 'ãː', 'i', 'iː', 'ü', 'üː', 'u', 'uː'); # ã = 'am' = sara am = chr(3635)
     local @tony = ('¹', '²', '³', '⁴');
+    local @diatony = (chr(768), chr(770), chr(769), chr(780)); # COMBINING GRAVE ACCENT, CIRCUMFLEX ACCENT, ACUTE ACCENT, CARON
     # Uložit do tabulky samohlásky jako záložní řešení, pokud bychom je někde
     # nedokázali spojit se souhláskami.
     for(my $j = 0; $j <= $#samohlasky; $j++)
@@ -151,37 +153,38 @@ sub inicializovat
         my $tsouhlaska = chr($i);
         my $rsouhlaska = $alt{$i}[0];
         $prevod->{$tsouhlaska} = $rsouhlaska;
-        # Přidat slabiky začínající touto souhláskou.
+        # Přidat slabiky začínající touto souhláskou. Nejdřív se samohláskami
+        # ze základního bloku, popsaného v poli @samohlasky.
         for(my $j = 0; $j <= $#samohlasky; $j++)
         {
             # Značka tónu se může volitelně objevit mezi souhláskou a samohláskou.
             tonovat($prevod, $tsouhlaska, chr($samohlasky+$j), $rsouhlaska.$samohlasky[$j]);
         }
         # Sara e = 3648.
-        $prevod->{$sara_e.$tsouhlaska} = $rsouhlaska.'é';
+        $prevod->{$sara_e.$tsouhlaska} = $rsouhlaska.'eː';
         $prevod->{$sara_e.$tsouhlaska.$sara_a} = $rsouhlaska.'e';
         $prevod->{$sara_e.$tsouhlaska.$maitaikhu} = $rsouhlaska.'e';
         # Sara ae = 3649.
-        $prevod->{$sara_ae.$tsouhlaska} = $rsouhlaska.'ǽ';
+        $prevod->{$sara_ae.$tsouhlaska} = $rsouhlaska.'æː';
         $prevod->{$sara_ae.$tsouhlaska.$sara_a} = $rsouhlaska.'æ';
         $prevod->{$sara_ae.$tsouhlaska.$maitaikhu} = $rsouhlaska.'æ';
         # Sara o = 3650.
-        $prevod->{$sara_o.$tsouhlaska} = $rsouhlaska.'ó';
+        $prevod->{$sara_o.$tsouhlaska} = $rsouhlaska.'oː';
         $prevod->{$sara_o.$tsouhlaska.$sara_a} = $rsouhlaska.'o';
         # Sara ai = 3651 (maimuan) a 3652 (maimalai); nevím, jaký je mezi nimi rozdíl.
         $prevod->{$sara_ai1.$tsouhlaska} = $rsouhlaska.'ai';
         $prevod->{$sara_ai2.$tsouhlaska} = $rsouhlaska.'ai';
         # Dvojhlásky.
         # Sara ia (podle RTGS se jak dlouhá, tak krátká přepisuje "ia").
-        tonovat($prevod, $sara_e.$tsouhlaska.$sara_ii, $yo_yak, $rsouhlaska.'íá');
+        tonovat($prevod, $sara_e.$tsouhlaska.$sara_ii, $yo_yak, $rsouhlaska.'iaː');
         # Sara uea (podle RTGS se jak dlouhá, tak krátká přepisuje "uea").
-        tonovat($prevod, $sara_e.$tsouhlaska.$sara_uee, $o_ang, $rsouhlaska.'űá');
+        tonovat($prevod, $sara_e.$tsouhlaska.$sara_uee, $o_ang, $rsouhlaska.'üaː');
         # Sara ua (podle RTGS se jak dlouhá, tak krátká přepisuje "ua").
-        tonovat($prevod, $tsouhlaska.$maihanakat, $wo_waen, $rsouhlaska.'úá');
+        tonovat($prevod, $tsouhlaska.$maihanakat, $wo_waen, $rsouhlaska.'uaː');
         # Sara ao (podle RTGS se jak dlouhá, tak krátká přepisuje "ao"). Foneticky jde o dvojhlásku, ale podle thajské tradice je krátká verze považována za další samohlásku.
-        tonovat($prevod, $sara_e.$tsouhlaska, $sara_aa, $rsouhlaska.'ao');
+        tonovat($prevod, $sara_e.$tsouhlaska, $sara_aa, $rsouhlaska.'aoː');
         # Další kombinace.
-        $prevod->{$tsouhlaska.$o_ang} = $rsouhlaska.'ɔː'; ###!!! Zatím nekonzistentní označování délky samohlásky, ale u otevřeného o bych musel použít combining acute accent.
+        $prevod->{$tsouhlaska.$o_ang} = $rsouhlaska.'ɔː';
         # Pozor! Pokud za souhláskou následuje o ang, neznamená to automaticky, že o ang označuje samohlásku 'ɔː'.
         # Může se stát, že aktuální souhláska je koncovou souhláskou předcházející slabiky a o ang naopak zahajuje novou slabiku.
         # Tuto druhou interpretaci určitě musíme zvolit, když za o ang následuje samohláska, která by jinak zůstala plonková.
@@ -193,7 +196,7 @@ sub inicializovat
         }
         $prevod->{$sara_e.$tsouhlaska.$sara_aa.$sara_a} = $rsouhlaska.'ɔ';
         $prevod->{$tsouhlaska.$maitaikhu.$o_ang} = $rsouhlaska.'ɔ';
-        $prevod->{$sara_e.$tsouhlaska.$o_ang} = $rsouhlaska.'óé';
+        $prevod->{$sara_e.$tsouhlaska.$o_ang} = $rsouhlaska.'oeː';
         $prevod->{$sara_e.$tsouhlaska.$o_ang.$sara_a} = $rsouhlaska.'oe';
         $prevod->{$sara_e.$tsouhlaska.$maitaikhu} = $rsouhlaska.'e'; ###!!! vyskytuje se následované souhláskou wo waen; tvoří dvojhlásku "ew", podle RTGS přepisovanou "eo"
         $prevod->{$tsouhlaska.$maitaikhu.$o_ang} = $rsouhlaska.'ɔ'; ###!!! vyskytuje se následované souhláskou yo yak; tvoří dvojhlásku "ɔi", podle RTGS přepisovanou "oi"
@@ -204,11 +207,21 @@ sub inicializovat
         # The circumfix vowels, such as เ–าะ /ɔʔ/, encompass a preceding consonant with an inherent vowel. For example, /pʰɔʔ/ is written เพาะ, and /tɕʰapʰɔʔ/ "only" is written เฉพาะ
         ###!!! We currently cannot convert 'เฉพาะ' correctly to 'čʰabʰɔ' because we do not have any consonant clusters covered.
     }
-    # Tóny.
-    $prevod->{chr(3656)} = $tony[0];
-    $prevod->{chr(3657)} = $tony[1];
-    $prevod->{chr(3658)} = $tony[2];
-    $prevod->{chr(3659)} = $tony[3];
+    # Tóny. (Zde pouze pro případ, že nám někde nějaký zůstane viset na místě,
+    # kde jsme ho nečekali. Jinak by se ve všech slabikách měly zpracovat funkcí
+    # tonovat().)
+    # https://en.wikipedia.org/wiki/Thai_language#Tones
+    # There are five tones. One of them seems to be unmarked: mid tone คา	/kʰāː/ 33
+    # The other tones may be marked by the characters below. However, in practice
+    # it is more complicated. The selected consonant character also affects the
+    # choice of available tones. The first two tone are more likely to occur than
+    # the other two, and they may be used to mark a tone which does not correspond
+    # to the name of the mark; for example, the second mark with a specific consonant
+    # indicates the high tone (mai tri).
+    $prevod->{chr(3656)} = $tony[0]; # THAI CHARACTER MAI EK (= tone one) # low tone ข่า	/kʰàː/ 21
+    $prevod->{chr(3657)} = $tony[1]; # THAI CHARACTER MAI THO (= tone two) # falling tone ค่า	/kʰâː/ 41
+    $prevod->{chr(3658)} = $tony[2]; # THAI CHARACTER MAI TRI (= tone three) # high tone ค้า	/kʰáː/ 45
+    $prevod->{chr(3659)} = $tony[3]; # THAI CHARACTER MAI CHATTAWA (= tone four) # rising tone ขา	/kʰǎː/ 214
     # Další diakritika.
     $prevod->{chr(3660)} = ''; # thanthakhat (meaning "capital punishment") indicates that the previous letter is silent ###!!! we should not convert it to an empty string, it is not reversible
     # Číslice.
@@ -227,22 +240,26 @@ sub inicializovat
 
 
 #------------------------------------------------------------------------------
-# Vygeneruje převody pro slabiku bez tónové značky a pro odpovídající slabiky
-# s různými tónovými značkami. Hlavní problém, který zde řešíme, tkví v tom,
-# že volitelná tónová značka může rozdělovat sekvenci znaků, které identifikují
-# samohlásku nebo dvojhlásku.
+# Generates transliterations for syllable without tone mark and for correspon-
+# ding syllables with various tone marks. The main problem we solve here is
+# that the optional tone mark may occur between two strings that together
+# identify a vowel or a diphtong.
 #------------------------------------------------------------------------------
 sub tonovat
 {
-    # Odkaz na hash, do kterého se má ukládat převodní tabulka.
-    my $prevod = shift;
-    my $pred = shift; # znaky před případnou tónovou značkou
-    my $po = shift; # znaky po případné tónové značce
-    my $rbez = shift; # romanizace slabiky bez tónové značky
+    my $prevod = shift; # reference to hash with transliteration table
+    my $pred = shift; # characters before optional tone mark
+    my $po = shift; # characters after optional tone mark
+    my $rbez = shift; # romanization of the syllable without tone mark
+    # Add transliteration of toneless syllable.
     $prevod->{$pred.$po} = $rbez;
+    # Add transliterations of the syllable with each of the four tone marks.
     for(my $k = 0; $k <= 3; $k++)
     {
-        $prevod->{$pred.chr($tony+$k).$po} = $rbez.$tony[$k];
+        # There are two options how to transcribe tones. Either as a superscript
+        # number (from the local array @tony) or as diacritics (@diatony).
+        #$prevod->{$pred.chr($tony+$k).$po} = $rbez.$tony[$k];
+        $prevod->{$pred.chr($tony+$k).$po} = NFC($rbez.$diatony[$k]);
     }
 }
 
