@@ -134,7 +134,7 @@ sub inicializovat
     my $sara_ai2 = chr(3652); # maimalai
     my $maitaikhu = chr(3655); # mai taikhu = stick that climbs and squats (hůl, která šplhá a dřepuje); vypadá jako malá thajská osmička; zkracuje samohlásky
     my $cislice = 3664;
-    my @samohlasky = ('a', 'â', 'aː', 'ãː', 'i', 'iː', 'ü', 'üː', 'u', 'uː'); # ã = 'am' = sara am = chr(3635)
+    my @samohlasky = ('a', 'ạ', 'aː', 'ãː', 'i', 'iː', 'ü', 'üː', 'u', 'uː'); # ã = 'am' = sara am = chr(3635)
     local @tony = ('¹', '²', '³', '⁴');
     local @diatony = (chr(768), chr(770), chr(769), chr(780)); # COMBINING GRAVE ACCENT, CIRCUMFLEX ACCENT, ACUTE ACCENT, CARON
     # Uložit do tabulky samohlásky jako záložní řešení, pokud bychom je někde
