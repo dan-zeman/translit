@@ -254,12 +254,13 @@ sub tonovat
     # Add transliteration of toneless syllable.
     $prevod->{$pred.$po} = $rbez;
     # Add transliterations of the syllable with each of the four tone marks.
+    my $rdl = $rbez =~ s/ː$// ? 'ː' : '';
     for(my $k = 0; $k <= 3; $k++)
     {
         # There are two options how to transcribe tones. Either as a superscript
         # number (from the local array @tony) or as diacritics (@diatony).
-        #$prevod->{$pred.chr($tony+$k).$po} = $rbez.$tony[$k];
-        $prevod->{$pred.chr($tony+$k).$po} = NFC($rbez.$diatony[$k]);
+        #$prevod->{$pred.chr($tony+$k).$po} = $rbez.$rdl.$tony[$k];
+        $prevod->{$pred.chr($tony+$k).$po} = NFC($rbez.$diatony[$k].$rdl);
     }
 }
 
