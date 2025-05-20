@@ -152,19 +152,16 @@ sub inicializovat
         my $tsouhlaska = chr($i);
         my $rsouhlaska = $alt{$i}[0];
         $prevod->{$tsouhlaska} = $rsouhlaska;
-        # Přidat slabiky začínající touto souhláskou.
+        # Add syllables with the current consonant as initial.
         vokalizovat($prevod, $tsouhlaska, $rsouhlaska);
+        # The character O ANG is difficult to interpret because it may be either
+        # a syllable-initial glottal stop (syllables "starting with a vowel"),
+        # or it may modify a vowel. We have to interpret it as an initial if it
+        # is followed by a vowel that would otherwise remain alone.
+        # For example, "ผ่านอำนาจ" should probably be transliterated "pʰàːn'ãːnaːč".
+        vokalizovat($prevod, $tsouhlaska.$o_ang, $rsouhlaska."'");
         # Další kombinace.
         tonovat($prevod, $tsouhlaska, $o_ang, $rsouhlaska.'ɔː');
-        # Pozor! Pokud za souhláskou následuje o ang, neznamená to automaticky, že o ang označuje samohlásku 'ɔː'.
-        # Může se stát, že aktuální souhláska je koncovou souhláskou předcházející slabiky a o ang naopak zahajuje novou slabiku.
-        # Tuto druhou interpretaci určitě musíme zvolit, když za o ang následuje samohláska, která by jinak zůstala plonková.
-        # Příklad, který se vyskytl, je "ผ่านอำนาจ" a měl by zřejmě být přepsán "pʰá¹n'ãnáč".
-        for(my $j = 0; $j <= $#samohlasky; $j++)
-        {
-            # Značka tónu se může volitelně objevit mezi souhláskou a samohláskou.
-            tonovat($prevod, $tsouhlaska.$o_ang, chr($samohlasky+$j), $rsouhlaska."'".$samohlasky[$j]);
-        }
         tonovat($prevod, $sara_e.$tsouhlaska.$sara_aa.$sara_a, '', $rsouhlaska.'ɔ');
         $prevod->{$tsouhlaska.$maitaikhu.$o_ang} = $rsouhlaska.'ɔ';
         tonovat($prevod, $sara_e.$tsouhlaska.$o_ang, '', $rsouhlaska.'œː');
