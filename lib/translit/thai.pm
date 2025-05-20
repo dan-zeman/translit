@@ -132,7 +132,7 @@ sub inicializovat
     my $sara_o = chr(3650);
     my $sara_ai1 = chr(3651); # maimuan
     my $sara_ai2 = chr(3652); # maimalai
-    my $maitaikhu = chr(3655); # mai taikhu = stick that climbs and squats (hůl, která šplhá a dřepuje); vypadá jako malá thajská osmička; zkracuje samohlásky
+    my $maitaikhu = chr(3655); # mai taikhu (ไม้ไต่คู้) = stick that climbs and squats (hůl, která šplhá a dřepuje); vypadá jako malá thajská osmička; zkracuje samohlásky v otevřených slabikách
     my $cislice = 3664;
     my @samohlasky = ('a', 'ạ', 'aː', 'ãː', 'i', 'iː', 'ü', 'üː', 'u', 'uː'); # ã = 'am' = sara am = chr(3635)
     local @tony = ('¹', '²', '³', '⁴');
@@ -163,11 +163,11 @@ sub inicializovat
         # Sara e = 3648.
         tonovat($prevod, $sara_e.$tsouhlaska, '', $rsouhlaska.'eː');
         tonovat($prevod, $sara_e.$tsouhlaska.$sara_a, '', $rsouhlaska.'e');
-        $prevod->{$sara_e.$tsouhlaska.$maitaikhu} = $rsouhlaska.'e';
+        $prevod->{$sara_e.$tsouhlaska.$maitaikhu} = $rsouhlaska.'eʔ';
         # Sara ae = 3649.
         tonovat($prevod, $sara_ae.$tsouhlaska, '', $rsouhlaska.'æː');
         tonovat($prevod, $sara_ae.$tsouhlaska.$sara_a, '', $rsouhlaska.'æ');
-        $prevod->{$sara_ae.$tsouhlaska.$maitaikhu} = $rsouhlaska.'æ';
+        $prevod->{$sara_ae.$tsouhlaska.$maitaikhu} = $rsouhlaska.'æʔ';
         # Sara o = 3650.
         tonovat($prevod, $sara_o.$tsouhlaska, '', $rsouhlaska.'oː');
         tonovat($prevod, $sara_o.$tsouhlaska.$sara_a, '', $rsouhlaska.'o');
@@ -201,11 +201,12 @@ sub inicializovat
         $prevod->{$sara_e.$tsouhlaska.$maitaikhu} = $rsouhlaska.'e'; ###!!! vyskytuje se následované souhláskou wo waen; tvoří dvojhlásku "ew", podle RTGS přepisovanou "eo"
         $prevod->{$tsouhlaska.$maitaikhu.$o_ang} = $rsouhlaska.'ɔ'; ###!!! vyskytuje se následované souhláskou yo yak; tvoří dvojhlásku "ɔi", podle RTGS přepisovanou "oi"
         # Není jasné, jakou samohlásku by mělo představovat maitaikhu, které není doprovázeno jiným samohláskovým znakem. Vyskytlo se slovo "ก็", googlí výslovnost mi připomíná otevřené "o".
-        $prevod->{$tsouhlaska.$maitaikhu} = $rsouhlaska.'ɔ';
+        $prevod->{$tsouhlaska.$maitaikhu} = $rsouhlaska.'ɔʔ';
         # The inherent vowels are /a/ in open syllables (CV) and /o/ in closed syllables (CVC).
         # For example, ถนน transcribes /tʰànǒn/ "road". There are a few exceptions in Pali loanwords, where the inherent vowel of an open syllable is /o/.
-        # The circumfix vowels, such as เ–าะ /ɔʔ/, encompass a preceding consonant with an inherent vowel. For example, /pʰɔʔ/ is written เพาะ, and /tɕʰapʰɔʔ/ "only" is written เฉพาะ
+        # The circumfix vowels, such as เ–าะ /ɔʔ/, encompass a preceding consonant with an inherent vowel. For example, /pʰɔʔ/ is written เพาะ (SARA E + PHO PHAN + SARA AA + SARA A), and /tɕʰapʰɔʔ/ "only" is written เฉพาะ (SARA E + CHO CHING + PHO PHAN + SARA AA + SARA A).
         ###!!! We currently cannot convert 'เฉพาะ' correctly to 'čʰabʰɔ' because we do not have any consonant clusters covered.
+        ###!!! Similarly: ใหม่ (SARA AI MAIMUAN + HO HIP + MO MA + MAI EK) should be 'hmaì' but we currently get 'haim¹'.
     }
     # Tones should have been dealt with in the function tonovat(). Just in case
     # a tone mark occurs at a position where we do not expect it, we also provide
