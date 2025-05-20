@@ -207,6 +207,12 @@ sub inicializovat
         # The circumfix vowels, such as เ–าะ /ɔʔ/, encompass a preceding consonant with an inherent vowel. For example, /pʰɔʔ/ is written เพาะ (SARA E + PHO PHAN + SARA AA + SARA A), and /tɕʰapʰɔʔ/ "only" is written เฉพาะ (SARA E + CHO CHING + PHO PHAN + SARA AA + SARA A).
         ###!!! We currently cannot convert 'เฉพาะ' correctly to 'čʰabʰɔ' because we do not have any consonant clusters covered.
         ###!!! Similarly: ใหม่ (SARA AI MAIMUAN + HO HIP + MO MA + MAI EK) should be 'hmaì' but we currently get 'haim¹'.
+        # We cannot recognize inherent vowels in the general case but if a consonant
+        # is followed by a tone mark and there are no vowel marks in the vicinity,
+        # we have to assume the inherent vowel. It would be pronounced either /a/
+        # or /o/ but we transliterate it as 'ə' to prevent confusion with explicit
+        # vowels.
+        tonovat($prevod, $tsouhlaska, '', $rsouhlaska.'ə');
     }
     # Tones should have been dealt with in the function tonovat(). Just in case
     # a tone mark occurs at a position where we do not expect it, we also provide
