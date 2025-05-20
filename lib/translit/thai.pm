@@ -260,7 +260,9 @@ sub tonovat
     my $po = shift; # characters after optional tone mark
     my $rbez = shift; # romanization of the syllable without tone mark
     # Add transliteration of toneless syllable.
-    $prevod->{$pred.$po} = $rbez;
+    # Do not do this with the inherent vowel because there we do not know whether
+    # it should be added if we do not see a tone mark.
+    $prevod->{$pred.$po} = $rbez unless($rbez =~ m/ə$/);
     # Add transliterations of the syllable with each of the four tone marks.
     my $rdl = $rbez =~ s/ː$// ? 'ː' : '';
     for(my $k = 0; $k <= 3; $k++)
