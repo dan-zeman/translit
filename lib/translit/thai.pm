@@ -125,6 +125,7 @@ sub inicializovat
     my $maihanakat = chr(3633);
     my $sara_aa = chr(3634);
     my $sara_am = chr(3635);
+    my $sara_i = chr(3636);
     my $sara_ii = chr(3637);
     my $sara_uee = chr(3639);
     my $sara_e = chr(3648);
