@@ -260,7 +260,10 @@ sub tonovat
         # There are two options how to transcribe tones. Either as a superscript
         # number (from the local array @tony) or as diacritics (@diatony).
         #$prevod->{$pred.chr($tony+$k).$po} = $rbez.$rdl.$tony[$k];
-        $prevod->{$pred.chr($tony+$k).$po} = NFC($rbez.$diatony[$k].$rdl);
+        #my $r = $rbez.$rdl.$tony[$k];
+        my $r = NFC($rbez.$diatony[$k].$rdl);
+        $prevod->{$pred.chr($tony+$k).$po} = $r;
+        $prevod->{$pred.$po.chr($tony+$k)} = $r;
     }
 }
 
