@@ -160,6 +160,7 @@ sub inicializovat
         # is followed by a vowel that would otherwise remain alone.
         # For example, "ผ่านอำนาจ" should probably be transliterated "pʰàːn'ãːnaːč".
         vokalizovat($prevod, $tsouhlaska.$o_ang, $rsouhlaska."'");
+        vokalizovat($prevod, $sara_e.$tsouhlaska.$o_ang, $rsouhlaska."eː'");
         # Další kombinace.
         tonovat($prevod, $tsouhlaska, $o_ang, $rsouhlaska.'ɔː');
         tonovat($prevod, $sara_e.$tsouhlaska.$sara_aa.$sara_a, '', $rsouhlaska.'ɔ');
