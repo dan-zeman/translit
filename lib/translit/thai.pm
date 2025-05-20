@@ -111,31 +111,29 @@ sub inicializovat
 {
     # Odkaz na hash, do kterého se má ukládat převodní tabulka.
     my $prevod = shift;
-    # Má se do latinky přidávat nečeská diakritika, aby se neztrácela informace?
-    my $bezztrat = 1;
     # Kód začátku segmentu s thajským písmem.
-    my $pocatek = 3585;
-    my $souhlasky = 3585;
-    my $samohlasky = 3632;
+    local $pocatek = 3585;
+    local $souhlasky = 3585;
+    local $samohlasky = 3632;
     local $tony = 3656;
-    my $yo_yak = chr(3618); # vyskytuje se jako souhláska nebo jako součást některých dvojhlásek
-    my $wo_waen = chr(3623); # vyskytuje se jako souhláska nebo jako součást některých dvojhlásek
-    my $o_ang = chr(3629); # funguje jako ráz před samohláskou nebo jako součást některých samohlásek
-    my $sara_a = chr(3632);
-    my $maihanakat = chr(3633);
-    my $sara_aa = chr(3634);
-    my $sara_am = chr(3635);
-    my $sara_i = chr(3636);
-    my $sara_ii = chr(3637);
-    my $sara_uee = chr(3639);
-    my $sara_e = chr(3648);
-    my $sara_ae = chr(3649);
-    my $sara_o = chr(3650);
-    my $sara_ai1 = chr(3651); # maimuan
-    my $sara_ai2 = chr(3652); # maimalai
-    my $maitaikhu = chr(3655); # mai taikhu (ไม้ไต่คู้) = stick that climbs and squats (hůl, která šplhá a dřepuje); vypadá jako malá thajská osmička; zkracuje samohlásky v otevřených slabikách
-    my $cislice = 3664;
-    my @samohlasky = ('a', 'ạ', 'aː', 'ãː', 'i', 'iː', 'ü', 'üː', 'u', 'uː'); # ã = 'am' = sara am = chr(3635)
+    local $yo_yak = chr(3618); # vyskytuje se jako souhláska nebo jako součást některých dvojhlásek
+    local $wo_waen = chr(3623); # vyskytuje se jako souhláska nebo jako součást některých dvojhlásek
+    local $o_ang = chr(3629); # funguje jako ráz před samohláskou nebo jako součást některých samohlásek
+    local $sara_a = chr(3632);
+    local $maihanakat = chr(3633);
+    local $sara_aa = chr(3634);
+    local $sara_am = chr(3635);
+    local $sara_i = chr(3636);
+    local $sara_ii = chr(3637);
+    local $sara_uee = chr(3639);
+    local $sara_e = chr(3648);
+    local $sara_ae = chr(3649);
+    local $sara_o = chr(3650);
+    local $sara_ai1 = chr(3651); # maimuan
+    local $sara_ai2 = chr(3652); # maimalai
+    local $maitaikhu = chr(3655); # mai taikhu (ไม้ไต่คู้) = stick that climbs and squats (hůl, která šplhá a dřepuje); vypadá jako malá thajská osmička; zkracuje samohlásky v otevřených slabikách
+    local $cislice = 3664;
+    local @samohlasky = ('a', 'ạ', 'aː', 'ãː', 'i', 'iː', 'ü', 'üː', 'u', 'uː'); # ã = 'am' = sara am = chr(3635)
     local @tony = ('¹', '²', '³', '⁴');
     local @diatony = (chr(768), chr(770), chr(769), chr(780)); # COMBINING GRAVE ACCENT, CIRCUMFLEX ACCENT, ACUTE ACCENT, CARON
     # Uložit do tabulky samohlásky jako záložní řešení, pokud bychom je někde
@@ -154,37 +152,8 @@ sub inicializovat
         my $tsouhlaska = chr($i);
         my $rsouhlaska = $alt{$i}[0];
         $prevod->{$tsouhlaska} = $rsouhlaska;
-        # Přidat slabiky začínající touto souhláskou. Nejdřív se samohláskami
-        # ze základního bloku, popsaného v poli @samohlasky.
-        for(my $j = 0; $j <= $#samohlasky; $j++)
-        {
-            # Značka tónu se může volitelně objevit mezi souhláskou a samohláskou.
-            tonovat($prevod, $tsouhlaska, chr($samohlasky+$j), $rsouhlaska.$samohlasky[$j]);
-        }
-        # Sara e = 3648.
-        tonovat($prevod, $sara_e.$tsouhlaska, '', $rsouhlaska.'eː');
-        tonovat($prevod, $sara_e.$tsouhlaska.$sara_a, '', $rsouhlaska.'e');
-        $prevod->{$sara_e.$tsouhlaska.$maitaikhu} = $rsouhlaska.'eʔ';
-        tonovat($prevod, $sara_e.$tsouhlaska.$sara_i, '', $rsouhlaska.'ei');
-        # Sara ae = 3649.
-        tonovat($prevod, $sara_ae.$tsouhlaska, '', $rsouhlaska.'æː');
-        tonovat($prevod, $sara_ae.$tsouhlaska.$sara_a, '', $rsouhlaska.'æ');
-        $prevod->{$sara_ae.$tsouhlaska.$maitaikhu} = $rsouhlaska.'æʔ';
-        # Sara o = 3650.
-        tonovat($prevod, $sara_o.$tsouhlaska, '', $rsouhlaska.'oː');
-        tonovat($prevod, $sara_o.$tsouhlaska.$sara_a, '', $rsouhlaska.'o');
-        # Sara ai = 3651 (maimuan) a 3652 (maimalai); nevím, jaký je mezi nimi rozdíl.
-        tonovat($prevod, $sara_ai1.$tsouhlaska, '', $rsouhlaska.'ai');
-        tonovat($prevod, $sara_ai2.$tsouhlaska, '', $rsouhlaska.'ại');
-        # Dvojhlásky.
-        # Sara ia (podle RTGS se jak dlouhá, tak krátká přepisuje "ia").
-        tonovat($prevod, $sara_e.$tsouhlaska.$sara_ii, $yo_yak, $rsouhlaska.'iaː');
-        # Sara uea (podle RTGS se jak dlouhá, tak krátká přepisuje "uea").
-        tonovat($prevod, $sara_e.$tsouhlaska.$sara_uee, $o_ang, $rsouhlaska.'üaː');
-        # Sara ua (podle RTGS se jak dlouhá, tak krátká přepisuje "ua").
-        tonovat($prevod, $tsouhlaska.$maihanakat, $wo_waen, $rsouhlaska.'uaː');
-        # Sara ao (podle RTGS se jak dlouhá, tak krátká přepisuje "ao"). Foneticky jde o dvojhlásku, ale podle thajské tradice je krátká verze považována za další samohlásku.
-        tonovat($prevod, $sara_e.$tsouhlaska, $sara_aa, $rsouhlaska.'aoː');
+        # Přidat slabiky začínající touto souhláskou.
+        vokalizovat($prevod, $tsouhlaska, $rsouhlaska);
         # Další kombinace.
         tonovat($prevod, $tsouhlaska, $o_ang, $rsouhlaska.'ɔː');
         # Pozor! Pokud za souhláskou následuje o ang, neznamená to automaticky, že o ang označuje samohlásku 'ɔː'.
@@ -245,6 +214,49 @@ sub inicializovat
     $prevod->{chr(3654)} = ''; # maiyamok udává, že předcházející slovo nebo fráze je reduplikované
     $prevod->{chr(3674)} = ''; # angkhankhu je konec sloky, oddílu, kapitoly
     $prevod->{chr(3675)} = ''; # khomut je konec kapitoly, dokumentu, příběhu
+}
+
+
+
+#------------------------------------------------------------------------------
+# Generates transliterations for open syllables. For a given initial consonant,
+# generates its combinations with all vowels and their transliterations.
+#------------------------------------------------------------------------------
+sub vokalizovat
+{
+    my $prevod = shift; # reference to hash with transliteration table
+    my $tsouhlaska = shift; # Thai consonant (or consonant cluster)
+    my $rsouhlaska = shift; # romanized consonant
+    # Uses some local variables from inicializovat(): @samohlasky, $sara_* etc.
+    # Process simple vowel marks that directly follow the consonant.
+    for(my $j = 0; $j <= $#samohlasky; $j++)
+    {
+        tonovat($prevod, $tsouhlaska, chr($samohlasky+$j), $rsouhlaska.$samohlasky[$j]);
+    }
+    # Sara e = 3648.
+    tonovat($prevod, $sara_e.$tsouhlaska, '', $rsouhlaska.'eː');
+    tonovat($prevod, $sara_e.$tsouhlaska.$sara_a, '', $rsouhlaska.'e');
+    $prevod->{$sara_e.$tsouhlaska.$maitaikhu} = $rsouhlaska.'eʔ';
+    tonovat($prevod, $sara_e.$tsouhlaska.$sara_i, '', $rsouhlaska.'ei');
+    # Sara ae = 3649.
+    tonovat($prevod, $sara_ae.$tsouhlaska, '', $rsouhlaska.'æː');
+    tonovat($prevod, $sara_ae.$tsouhlaska.$sara_a, '', $rsouhlaska.'æ');
+    $prevod->{$sara_ae.$tsouhlaska.$maitaikhu} = $rsouhlaska.'æʔ';
+    # Sara o = 3650.
+    tonovat($prevod, $sara_o.$tsouhlaska, '', $rsouhlaska.'oː');
+    tonovat($prevod, $sara_o.$tsouhlaska.$sara_a, '', $rsouhlaska.'o');
+    # Sara ai = 3651 (maimuan) a 3652 (maimalai); nevím, jaký je mezi nimi rozdíl.
+    tonovat($prevod, $sara_ai1.$tsouhlaska, '', $rsouhlaska.'ai');
+    tonovat($prevod, $sara_ai2.$tsouhlaska, '', $rsouhlaska.'ại');
+    # Dvojhlásky.
+    # Sara ia (podle RTGS se jak dlouhá, tak krátká přepisuje "ia").
+    tonovat($prevod, $sara_e.$tsouhlaska.$sara_ii, $yo_yak, $rsouhlaska.'iaː');
+    # Sara uea (podle RTGS se jak dlouhá, tak krátká přepisuje "uea").
+    tonovat($prevod, $sara_e.$tsouhlaska.$sara_uee, $o_ang, $rsouhlaska.'üaː');
+    # Sara ua (podle RTGS se jak dlouhá, tak krátká přepisuje "ua").
+    tonovat($prevod, $tsouhlaska.$maihanakat, $wo_waen, $rsouhlaska.'uaː');
+    # Sara ao (podle RTGS se jak dlouhá, tak krátká přepisuje "ao"). Foneticky jde o dvojhlásku, ale podle thajské tradice je krátká verze považována za další samohlásku.
+    tonovat($prevod, $sara_e.$tsouhlaska, $sara_aa, $rsouhlaska.'aoː');
 }
 
 
