@@ -173,7 +173,7 @@ sub inicializovat
         tonovat($prevod, $sara_o.$tsouhlaska.$sara_a, '', $rsouhlaska.'o');
         # Sara ai = 3651 (maimuan) a 3652 (maimalai); nevím, jaký je mezi nimi rozdíl.
         tonovat($prevod, $sara_ai1.$tsouhlaska, '', $rsouhlaska.'ai');
-        tonovat($prevod, $sara_ai2.$tsouhlaska, '', $rsouhlaska.'ai');
+        tonovat($prevod, $sara_ai2.$tsouhlaska, '', $rsouhlaska.'ại');
         # Dvojhlásky.
         # Sara ia (podle RTGS se jak dlouhá, tak krátká přepisuje "ia").
         tonovat($prevod, $sara_e.$tsouhlaska.$sara_ii, $yo_yak, $rsouhlaska.'iaː');
@@ -184,7 +184,7 @@ sub inicializovat
         # Sara ao (podle RTGS se jak dlouhá, tak krátká přepisuje "ao"). Foneticky jde o dvojhlásku, ale podle thajské tradice je krátká verze považována za další samohlásku.
         tonovat($prevod, $sara_e.$tsouhlaska, $sara_aa, $rsouhlaska.'aoː');
         # Další kombinace.
-        tonovat($prevod, $tsouhlaska.$o_ang, '', $rsouhlaska.'ɔː');
+        tonovat($prevod, $tsouhlaska, $o_ang, $rsouhlaska.'ɔː');
         # Pozor! Pokud za souhláskou následuje o ang, neznamená to automaticky, že o ang označuje samohlásku 'ɔː'.
         # Může se stát, že aktuální souhláska je koncovou souhláskou předcházející slabiky a o ang naopak zahajuje novou slabiku.
         # Tuto druhou interpretaci určitě musíme zvolit, když za o ang následuje samohláska, která by jinak zůstala plonková.
