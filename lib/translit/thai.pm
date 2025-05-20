@@ -164,6 +164,7 @@ sub inicializovat
         tonovat($prevod, $sara_e.$tsouhlaska, '', $rsouhlaska.'eː');
         tonovat($prevod, $sara_e.$tsouhlaska.$sara_a, '', $rsouhlaska.'e');
         $prevod->{$sara_e.$tsouhlaska.$maitaikhu} = $rsouhlaska.'eʔ';
+        tonovat($prevod, $sara_e.$tsouhlaska.$sara_i, '', $rsouhlaska.'ei');
         # Sara ae = 3649.
         tonovat($prevod, $sara_ae.$tsouhlaska, '', $rsouhlaska.'æː');
         tonovat($prevod, $sara_ae.$tsouhlaska.$sara_a, '', $rsouhlaska.'æ');
