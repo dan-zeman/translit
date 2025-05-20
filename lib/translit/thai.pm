@@ -161,6 +161,10 @@ sub inicializovat
         # For example, "ผ่านอำนาจ" should probably be transliterated "pʰàːn'ãːnaːč".
         vokalizovat($prevod, $tsouhlaska.$o_ang, $rsouhlaska."'");
         vokalizovat($prevod, $sara_e.$tsouhlaska.$o_ang, $rsouhlaska."eː'");
+        vokalizovat($prevod, $sara_ae.$tsouhlaska.$o_ang, $rsouhlaska."æː'");
+        vokalizovat($prevod, $sara_o.$tsouhlaska.$o_ang, $rsouhlaska."oː'");
+        vokalizovat($prevod, $sara_ai1.$tsouhlaska.$o_ang, $rsouhlaska."ai'");
+        vokalizovat($prevod, $sara_ai2.$tsouhlaska.$o_ang, $rsouhlaska."ại'");
         # Další kombinace.
         tonovat($prevod, $tsouhlaska, $o_ang, $rsouhlaska.'ɔː');
         tonovat($prevod, $sara_e.$tsouhlaska.$sara_aa.$sara_a, '', $rsouhlaska.'ɔ');
