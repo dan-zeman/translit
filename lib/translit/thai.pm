@@ -161,19 +161,19 @@ sub inicializovat
             tonovat($prevod, $tsouhlaska, chr($samohlasky+$j), $rsouhlaska.$samohlasky[$j]);
         }
         # Sara e = 3648.
-        $prevod->{$sara_e.$tsouhlaska} = $rsouhlaska.'eː';
-        $prevod->{$sara_e.$tsouhlaska.$sara_a} = $rsouhlaska.'e';
+        tonovat($prevod, $sara_e.$tsouhlaska, '', $rsouhlaska.'eː');
+        tonovat($prevod, $sara_e.$tsouhlaska.$sara_a, '', $rsouhlaska.'e');
         $prevod->{$sara_e.$tsouhlaska.$maitaikhu} = $rsouhlaska.'e';
         # Sara ae = 3649.
-        $prevod->{$sara_ae.$tsouhlaska} = $rsouhlaska.'æː';
-        $prevod->{$sara_ae.$tsouhlaska.$sara_a} = $rsouhlaska.'æ';
+        tonovat($prevod, $sara_ae.$tsouhlaska, '', $rsouhlaska.'æː');
+        tonovat($prevod, $sara_ae.$tsouhlaska.$sara_a, '', $rsouhlaska.'æ');
         $prevod->{$sara_ae.$tsouhlaska.$maitaikhu} = $rsouhlaska.'æ';
         # Sara o = 3650.
-        $prevod->{$sara_o.$tsouhlaska} = $rsouhlaska.'oː';
-        $prevod->{$sara_o.$tsouhlaska.$sara_a} = $rsouhlaska.'o';
+        tonovat($prevod, $sara_o.$tsouhlaska, '', $rsouhlaska.'oː');
+        tonovat($prevod, $sara_o.$tsouhlaska.$sara_a, '', $rsouhlaska.'o');
         # Sara ai = 3651 (maimuan) a 3652 (maimalai); nevím, jaký je mezi nimi rozdíl.
-        $prevod->{$sara_ai1.$tsouhlaska} = $rsouhlaska.'ai';
-        $prevod->{$sara_ai2.$tsouhlaska} = $rsouhlaska.'ai';
+        tonovat($prevod, $sara_ai1.$tsouhlaska, '', $rsouhlaska.'ai');
+        tonovat($prevod, $sara_ai2.$tsouhlaska, '', $rsouhlaska.'ai');
         # Dvojhlásky.
         # Sara ia (podle RTGS se jak dlouhá, tak krátká přepisuje "ia").
         tonovat($prevod, $sara_e.$tsouhlaska.$sara_ii, $yo_yak, $rsouhlaska.'iaː');
@@ -184,7 +184,7 @@ sub inicializovat
         # Sara ao (podle RTGS se jak dlouhá, tak krátká přepisuje "ao"). Foneticky jde o dvojhlásku, ale podle thajské tradice je krátká verze považována za další samohlásku.
         tonovat($prevod, $sara_e.$tsouhlaska, $sara_aa, $rsouhlaska.'aoː');
         # Další kombinace.
-        $prevod->{$tsouhlaska.$o_ang} = $rsouhlaska.'ɔː';
+        tonovat($prevod, $tsouhlaska.$o_ang, '', $rsouhlaska.'ɔː');
         # Pozor! Pokud za souhláskou následuje o ang, neznamená to automaticky, že o ang označuje samohlásku 'ɔː'.
         # Může se stát, že aktuální souhláska je koncovou souhláskou předcházející slabiky a o ang naopak zahajuje novou slabiku.
         # Tuto druhou interpretaci určitě musíme zvolit, když za o ang následuje samohláska, která by jinak zůstala plonková.
@@ -194,10 +194,10 @@ sub inicializovat
             # Značka tónu se může volitelně objevit mezi souhláskou a samohláskou.
             tonovat($prevod, $tsouhlaska.$o_ang, chr($samohlasky+$j), $rsouhlaska."'".$samohlasky[$j]);
         }
-        $prevod->{$sara_e.$tsouhlaska.$sara_aa.$sara_a} = $rsouhlaska.'ɔ';
+        tonovat($prevod, $sara_e.$tsouhlaska.$sara_aa.$sara_a, '', $rsouhlaska.'ɔ');
         $prevod->{$tsouhlaska.$maitaikhu.$o_ang} = $rsouhlaska.'ɔ';
-        $prevod->{$sara_e.$tsouhlaska.$o_ang} = $rsouhlaska.'oeː';
-        $prevod->{$sara_e.$tsouhlaska.$o_ang.$sara_a} = $rsouhlaska.'oe';
+        tonovat($prevod, $sara_e.$tsouhlaska.$o_ang, '', $rsouhlaska.'oeː');
+        tonovat($prevod, $sara_e.$tsouhlaska.$o_ang.$sara_a, '', $rsouhlaska.'oe');
         $prevod->{$sara_e.$tsouhlaska.$maitaikhu} = $rsouhlaska.'e'; ###!!! vyskytuje se následované souhláskou wo waen; tvoří dvojhlásku "ew", podle RTGS přepisovanou "eo"
         $prevod->{$tsouhlaska.$maitaikhu.$o_ang} = $rsouhlaska.'ɔ'; ###!!! vyskytuje se následované souhláskou yo yak; tvoří dvojhlásku "ɔi", podle RTGS přepisovanou "oi"
         # Není jasné, jakou samohlásku by mělo představovat maitaikhu, které není doprovázeno jiným samohláskovým znakem. Vyskytlo se slovo "ก็", googlí výslovnost mi připomíná otevřené "o".
