@@ -196,8 +196,8 @@ sub inicializovat
         }
         tonovat($prevod, $sara_e.$tsouhlaska.$sara_aa.$sara_a, '', $rsouhlaska.'ɔ');
         $prevod->{$tsouhlaska.$maitaikhu.$o_ang} = $rsouhlaska.'ɔ';
-        tonovat($prevod, $sara_e.$tsouhlaska.$o_ang, '', $rsouhlaska.'oeː');
-        tonovat($prevod, $sara_e.$tsouhlaska.$o_ang.$sara_a, '', $rsouhlaska.'oe');
+        tonovat($prevod, $sara_e.$tsouhlaska.$o_ang, '', $rsouhlaska.'œː');
+        tonovat($prevod, $sara_e.$tsouhlaska.$o_ang.$sara_a, '', $rsouhlaska.'œ');
         $prevod->{$sara_e.$tsouhlaska.$maitaikhu} = $rsouhlaska.'e'; ###!!! vyskytuje se následované souhláskou wo waen; tvoří dvojhlásku "ew", podle RTGS přepisovanou "eo"
         $prevod->{$tsouhlaska.$maitaikhu.$o_ang} = $rsouhlaska.'ɔ'; ###!!! vyskytuje se následované souhláskou yo yak; tvoří dvojhlásku "ɔi", podle RTGS přepisovanou "oi"
         # Není jasné, jakou samohlásku by mělo představovat maitaikhu, které není doprovázeno jiným samohláskovým znakem. Vyskytlo se slovo "ก็", googlí výslovnost mi připomíná otevřené "o".
@@ -207,21 +207,22 @@ sub inicializovat
         # The circumfix vowels, such as เ–าะ /ɔʔ/, encompass a preceding consonant with an inherent vowel. For example, /pʰɔʔ/ is written เพาะ, and /tɕʰapʰɔʔ/ "only" is written เฉพาะ
         ###!!! We currently cannot convert 'เฉพาะ' correctly to 'čʰabʰɔ' because we do not have any consonant clusters covered.
     }
-    # Tóny. (Zde pouze pro případ, že nám někde nějaký zůstane viset na místě,
-    # kde jsme ho nečekali. Jinak by se ve všech slabikách měly zpracovat funkcí
-    # tonovat().)
+    # Tones should have been dealt with in the function tonovat(). Just in case
+    # a tone mark occurs at a position where we do not expect it, we also provide
+    # direct transliteration of the tone marks.
     # https://en.wikipedia.org/wiki/Thai_language#Tones
-    # There are five tones. One of them seems to be unmarked: mid tone คา	/kʰāː/ 33
-    # The other tones may be marked by the characters below. However, in practice
-    # it is more complicated. The selected consonant character also affects the
-    # choice of available tones. The first two tone are more likely to occur than
-    # the other two, and they may be used to mark a tone which does not correspond
-    # to the name of the mark; for example, the second mark with a specific consonant
-    # indicates the high tone (mai tri).
-    $prevod->{chr(3656)} = $tony[0]; # THAI CHARACTER MAI EK (= tone one) # low tone ข่า	/kʰàː/ 21
-    $prevod->{chr(3657)} = $tony[1]; # THAI CHARACTER MAI THO (= tone two) # falling tone ค่า	/kʰâː/ 41
-    $prevod->{chr(3658)} = $tony[2]; # THAI CHARACTER MAI TRI (= tone three) # high tone ค้า	/kʰáː/ 45
-    $prevod->{chr(3659)} = $tony[3]; # THAI CHARACTER MAI CHATTAWA (= tone four) # rising tone ขา	/kʰǎː/ 214
+    # There are five tones. One of them seems to be unmarked and the other tones
+    # may be marked by the characters below. However, in practice it is more complicated.
+    # The selected consonant character also affects the choice of available tones.
+    # The first two tone marks are more likely to occur than the other two, and
+    # they may be used to mark a tone which does not correspond to the name of the
+    # ; for example, the second mark with a specific consonant indicates the high
+    # tone (mai tri).
+    # Unmarked tone (สามัญ = saːmạŷ = ordinary): mid tone (33), e.g., คา /kʰāː/ gʰaː
+    $prevod->{chr(3656)} = $tony[0]; # THAI CHARACTER MAI EK (= tone one) # low tone (21), e.g., ข่า /kʰàː/ kʰàː
+    $prevod->{chr(3657)} = $tony[1]; # THAI CHARACTER MAI THO (= tone two) # falling tone (41), e.g., ค่า /kʰâː/ gʰàː
+    $prevod->{chr(3658)} = $tony[2]; # THAI CHARACTER MAI TRI (= tone three) # high tone (45), e.g., ค้า /kʰáː/ gʰâː
+    $prevod->{chr(3659)} = $tony[3]; # THAI CHARACTER MAI CHATTAWA (= tone four) # rising tone (214), e.g., ขา /kʰǎː/ kʰaː
     # Další diakritika.
     $prevod->{chr(3660)} = ''; # thanthakhat (meaning "capital punishment") indicates that the previous letter is silent ###!!! we should not convert it to an empty string, it is not reversible
     # Číslice.
