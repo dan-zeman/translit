@@ -213,9 +213,9 @@ sub inicializovat
     }
     # Interpunkce a další znaky.
     $prevod->{chr(3631)} = '.'; # paiyannoi se používá u zkratek
-    $prevod->{chr(3654)} = ''; # maiyamok udává, že předcházející slovo nebo fráze je reduplikované
-    $prevod->{chr(3674)} = ''; # angkhankhu je konec sloky, oddílu, kapitoly
-    $prevod->{chr(3675)} = ''; # khomut je konec kapitoly, dokumentu, příběhu
+    $prevod->{chr(3654)} = '.'; # maiyamok ๆ udává, že předcházející slovo nebo fráze je reduplikované; prozatím se k tomu chovám podobně jako ke zkratce
+    $prevod->{chr(3674)} = '§'; # angkhankhu je konec sloky, oddílu, kapitoly
+    $prevod->{chr(3675)} = '§'; # khomut je konec kapitoly, dokumentu, příběhu
 }
 
 
