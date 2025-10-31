@@ -72,6 +72,10 @@ while(<>)
         }
         if(scalar(@misc) > 0)
         {
+            # Sort the MISC attributes alphabetically. It is not mandatory but
+            # Udapi and other tools do it, so we will not create unnecessary
+            # differences in git.
+            @misc = sort {lc($a) cmp lc($b)} (@misc);
             $f[9] = join('|', @misc);
         }
         else
