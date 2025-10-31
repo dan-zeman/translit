@@ -104,7 +104,7 @@ sub inicializovat
     # "u" se dnes považuje za jedno písmeno, ale je to kombinace vo+yiwn
     $prevod->{chr(1352).chr(1362)} = 'U';
     $prevod->{chr(1352).chr(1410)} = 'U';
-    $prevod->{chr{1400).chr(1410)} = 'u';
+    $prevod->{chr(1400).chr(1410)} = 'u';
     return $prevod;
 }
 
