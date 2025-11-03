@@ -32,7 +32,12 @@ sub transliterate
     # but just in case they don't, apply NFC here. In theory this may not be enough
     # for the borderline of the current $text and the place where it is inserted,
     # but such errors are unlikely.
-    return NFC(translit::han2pinyin::pinyin(translit::prevest(\%prevod, $text, $maxl)));
+    my $translit = NFC(translit::han2pinyin::pinyin(translit::prevest(\%prevod, $text, $maxl)));
+    # Attribute values in MISC must not start or end with a space. And occasionally
+    # transliteration will be a space, e.g., the ARABIC THOUSANDS SEPARATOR is transliterated to NO-BREAK SPACE.
+    $translit =~ s/^\s+//;
+    $translit =~ s/\s+$//;
+    return $translit;
 }
 
 # Read CoNLL-U from STDIN.
